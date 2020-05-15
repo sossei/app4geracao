@@ -14,6 +14,7 @@ dependencies:
   mobx: ^1.0.2+2
   flare_splash_screen: ^3.0.1
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.3
   flutter_test:
     sdk: flutter
   build_runner: ^1.8.0
@@ -21,10 +22,8 @@ dev_dependencies:
   url_launcher: ^5.4.2
 flutter:
   uses-material-design: true
-
   assets:
     - assets/images/
-
   fonts:
     - family: gloucester
       fonts:
