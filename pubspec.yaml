@@ -21,6 +21,7 @@ dependencies:
   permission_handler: ^5.0.0+hotfix.6
   flutter_icons: ^1.0.0+1
   camera_camera: ^1.0.32+1
+  page_transition: ^1.1.5
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.3

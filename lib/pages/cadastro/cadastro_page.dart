@@ -123,6 +123,8 @@ class _CadastroPageState extends State<CadastroPage> {
                           initialValue: _controller.usuario.telefone,
                           validator: (value) {
                             if (value.isEmpty) return 'Campo obrigatório';
+                            if (value.length < 11)
+                              return 'Telefone inválido. Exemplo correto: 14999998888';
                             _controller.usuario.telefone = value;
                             return null;
                           },

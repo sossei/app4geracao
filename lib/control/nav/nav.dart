@@ -1,18 +1,19 @@
 import 'package:app4geracao/pages/splashscreen/splashscreen_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 push(BuildContext context, Widget page) {
   Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => page),
-  );
+      context,
+      PageTransition(
+          type: PageTransitionType.rightToLeftWithFade, child: page));
 }
 
 pushReplacment(BuildContext context, Widget page) {
   Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => page),
-  );
+      context,
+      PageTransition(
+          type: PageTransitionType.rightToLeftWithFade, child: page));
 }
 
 pop(BuildContext context) {
@@ -22,6 +23,7 @@ pop(BuildContext context) {
 returnSplash(BuildContext context) {
   Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
+      PageTransition(
+          type: PageTransitionType.leftToRightWithFade, child: SplashScreen()),
       ModalRoute.withName('/'));
 }
