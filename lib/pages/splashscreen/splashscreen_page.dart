@@ -1,13 +1,12 @@
+import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/pages/intro/intro_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 4)).then((_) => Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(
-            settings: RouteSettings(name: "/Intro"),
-            builder: (context) => IntroPage())));
+    Future.delayed(Duration(seconds: 4))
+        .then((_) => pushReplacment(context, IntroPage()));
     return Scaffold(
       body: _body(),
     );
