@@ -151,7 +151,9 @@ class _LoginPageState extends State<LoginPage> {
                 Button4Geracao(
                   title: 'Prosseguir',
                   action: () {
-                    _controller.login();
+                    _controller.login().then((value) => (resp) {
+                          // if(resp == true) TODO NAVERGAR PARA MENU
+                        });
                   },
                 ),
                 SizedBox(height: 16),

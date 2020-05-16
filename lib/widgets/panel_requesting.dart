@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'button_4geracao.dart';
-
 class PanelRequesting extends StatelessWidget {
   final String descricao;
 
