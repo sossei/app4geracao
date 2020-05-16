@@ -2,6 +2,7 @@ import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/pages/cadastro/cadastro_controller.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
+import 'package:app4geracao/widgets/panel_uploadimage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -70,6 +71,15 @@ class _CadastroPageState extends State<CadastroPage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        Text('Foto'),
+                        UploadImageWidget(
+                          onImageUploaded: (url) {
+                            _controller.usuario.fotoPerfil = url;
+                          },
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
                         TextFormField(
                           focusNode: _email,
                           textInputAction: TextInputAction.next,
