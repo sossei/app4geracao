@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app4geracao/control/web/aws.dart';
-import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +21,6 @@ class UploadImageWidget extends StatefulWidget {
 }
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
-  final awsToken = 'AKIAITMRPJ2L3RAMIAYA';
-  final awsScretKey = 'uSVqmA5oHq9p7F1/lUW0YrvcfaO8d9FPdj/yI9QL';
   final Function(String urlFile) onImageUploaded;
   bool isUploading = false;
   _UploadImageWidgetState(this.onImageUploaded);

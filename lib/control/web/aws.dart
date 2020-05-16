@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 
 final awskey = {'X-API-Key': 'sXJNAnFt1DhfG8PeEANV1VRWcuzMsQMpuc1XLv40'};
 final awsurl = 'https://imptg0lx1i.execute-api.sa-east-1.amazonaws.com/dev';
+final awss3 = 'https://bucketpp01.s3-sa-east-1.amazonaws.com/';
 String getResponse(Response response) {
   debugPrint('${response.statusCode}');
   debugPrint('${response.body}');
