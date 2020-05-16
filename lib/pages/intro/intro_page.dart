@@ -1,3 +1,4 @@
+import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/pages/cadastro/cadastro_page.dart';
 import 'package:app4geracao/pages/login/login_page.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
@@ -96,9 +97,7 @@ class _IntroPageState extends State<IntroPage> {
       child: Button4Geracao(
         title: 'Cadastrar',
         action: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              settings: RouteSettings(name: "/Cadastro/Email"),
-              builder: (context) => CadastroPage()));
+          push(context, CadastroPage());
         },
       ),
     );
@@ -130,9 +129,7 @@ class _IntroPageState extends State<IntroPage> {
         ),
       ),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            settings: RouteSettings(name: "/Login"),
-            builder: (context) => LoginPage()));
+        push(context, LoginPage());
       },
     );
   }
