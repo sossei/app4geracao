@@ -74,7 +74,8 @@ class _CadastroPageState extends State<CadastroPage> {
                         Text('Foto'),
                         UploadImageWidget(
                           onImageUploaded: (url) {
-                            _controller.usuario.fotoPerfil = url;
+                            _controller.usuario.fotoPerfil =
+                                url.replaceAll("\"", '');
                           },
                         ),
                         SizedBox(
