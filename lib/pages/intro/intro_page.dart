@@ -1,4 +1,4 @@
-import 'package:app4geracao/pages/cadastro/email/cadastro_email_page.dart';
+import 'package:app4geracao/pages/cadastro/cadastro_page.dart';
 import 'package:app4geracao/pages/login/login_page.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +98,7 @@ class _IntroPageState extends State<IntroPage> {
         action: () {
           Navigator.of(context).push(MaterialPageRoute(
               settings: RouteSettings(name: "/Cadastro/Email"),
-              builder: (context) => CadastroEmailPage()));
+              builder: (context) => CadastroPage()));
         },
       ),
     );

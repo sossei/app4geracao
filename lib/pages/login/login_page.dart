@@ -1,3 +1,4 @@
+import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/pages/login/login_controller.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
@@ -151,9 +152,9 @@ class _LoginPageState extends State<LoginPage> {
                 Button4Geracao(
                   title: 'Prosseguir',
                   action: () {
-                    _controller.login().then((value) => (resp) {
-                          // if(resp == true) TODO NAVERGAR PARA MENU
-                        });
+                    _controller.login().then((value) {
+                      if (value) returnSplash(context);
+                    });
                   },
                 ),
                 SizedBox(height: 16),

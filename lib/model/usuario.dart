@@ -1,5 +1,6 @@
 // {
 //     "email":"viny.sossei@gmail.com",
+//     "telefone":"",
 //     "nome":"Vinicius Sossei",
 //     "sobrenome":"Sakugawa",
 //     "senha":"abcd",
@@ -11,10 +12,11 @@
 //     },
 //     "foto_perfil":"url_foto",
 //     "notificardia":true,
-//     "notificarhora":true,
+//     "notificarhora":true
 // }
 class Usuario {
   String email;
+  String telefone;
   String nome;
   String sobrenome;
   String senha;
@@ -25,6 +27,7 @@ class Usuario {
 
   Usuario(
       {this.email,
+      this.telefone,
       this.nome,
       this.sobrenome,
       this.senha,
@@ -35,6 +38,7 @@ class Usuario {
 
   Usuario.fromJson(Map<String, dynamic> json) {
     email = json['email'];
+    telefone = json['telefone'];
     nome = json['nome'];
     sobrenome = json['sobrenome'];
     senha = json['senha'];
@@ -49,6 +53,7 @@ class Usuario {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['email'] = this.email;
+    data['telefone'] = this.telefone;
     data['nome'] = this.nome;
     data['sobrenome'] = this.sobrenome;
     data['senha'] = this.senha;
