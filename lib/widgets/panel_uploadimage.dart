@@ -34,7 +34,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
     return Stack(
       children: <Widget>[
         Positioned(
-          child: _buildAddPhoto(),
+          child: _buildPhoto(),
         ),
         _buildRequesting(),
         Positioned(
@@ -44,9 +44,9 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             onTap: () => _onAddPhotoClicked(context),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius:
-                      new BorderRadius.all(Radius.elliptical(150, 150)),
-                  color: Colors.blueGrey),
+                borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+                color: Theme.of(context).primaryColor.withOpacity(0.8),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Icon(
@@ -64,9 +64,9 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             onTap: () => _onTakePicture(context),
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius:
-                      new BorderRadius.all(Radius.elliptical(150, 150)),
-                  color: Colors.blueGrey),
+                borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+                color: Theme.of(context).primaryColor.withOpacity(0.8),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Icon(
@@ -90,7 +90,10 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
                 color: Colors.black.withOpacity(0.5)),
             height: 150,
             width: 150,
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+                child: CircularProgressIndicator(
+              backgroundColor: Colors.white.withOpacity(0.3),
+            )),
           )
         : Container(
             height: 150,
@@ -98,7 +101,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
           );
   }
 
-  _buildAddPhoto() {
+  _buildPhoto() {
     return Container(
       margin: EdgeInsets.all(5),
       decoration: new BoxDecoration(

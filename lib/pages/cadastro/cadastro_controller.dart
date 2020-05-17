@@ -1,9 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/model/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import 'cadastro_repository.dart';
+
 part 'cadastro_controller.g.dart';
 
 class CadastroController = _CadastroControllerBase with _$CadastroController;
@@ -53,15 +57,19 @@ abstract class _CadastroControllerBase with Store {
         endereco = Endereco();
         usuario.endereco = endereco;
         await _repository.cadastro(usuario);
-        await UsuarioPref().saveUsuario(usuario);
+
         _setRequesting(false);
         setIsEndereco(true);
         return true;
       }
     } catch (e, s) {
       debugPrint('$e - $s');
-      setMsgErro(e.toString());
-      setIsEndereco(false);
+      if (e is SocketException || e is TimeoutException) {
+        setMsgErro('Sem conexão com a internet');
+      } else {
+        setMsgErro(e.toString());
+        setIsEndereco(false);
+      }
     }
     return false;
   }

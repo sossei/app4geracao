@@ -207,9 +207,11 @@ class _CadastroPageState extends State<CadastroPage> {
                           initialValue: _controller.usuario.senha,
                           validator: (value) {
                             if (value.isEmpty) return 'Campo obrigatório';
+                            if (value.length < 6) return 'Mínimo 6 caracteres';
                             _controller.usuario.senha = value;
                             return null;
                           },
+                          obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Senha',
                             hintText: 'Digite sua senha',
@@ -230,7 +232,7 @@ class _CadastroPageState extends State<CadastroPage> {
               ),
               RaisedButton(
                 onPressed: () {
-                  _controller.cadastro().then((value) => null);
+                  _controller.cadastro();
                 },
                 color: Theme.of(context).accentColor,
                 child: Container(

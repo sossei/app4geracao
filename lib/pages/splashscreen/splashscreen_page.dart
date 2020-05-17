@@ -1,12 +1,14 @@
 import 'package:app4geracao/control/nav/nav.dart';
+import 'package:app4geracao/control/preferences/user_pref.dart';
+import 'package:app4geracao/model/usuario.dart';
+import 'package:app4geracao/pages/intro/intro_logado_page.dart';
 import 'package:app4geracao/pages/intro/intro_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 4))
-        .then((_) => pushReplacment(context, IntroPage()));
+    fetch(context);
     return Scaffold(
       body: _body(),
     );
@@ -24,5 +26,16 @@ class SplashScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  fetch(BuildContext context) async {
+    Usuario usu = await UsuarioPref().getUsuario();
+    if (usu == null) {
+      Future.delayed(Duration(seconds: 2))
+          .then((_) => pushReplacment(context, IntroPage()));
+    } else {
+      Future.delayed(Duration(seconds: 1))
+          .then((_) => pushReplacment(context, IntroLogadoPage()));
+    }
   }
 }
