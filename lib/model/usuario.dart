@@ -3,6 +3,7 @@
 //     "telefone":"",
 //     "nome":"Vinicius Sossei",
 //     "sobrenome":"Sakugawa",
+//     "data_nascimento":"05",
 //     "senha":"abcd",
 //     "endereco":{
 //         "rua":"Av.Humberto Martignoni",
@@ -19,6 +20,7 @@ class Usuario {
   String telefone;
   String nome;
   String sobrenome;
+  String dataNascimento;
   String senha;
   Endereco endereco;
   String fotoPerfil;
@@ -30,6 +32,7 @@ class Usuario {
       this.telefone,
       this.nome,
       this.sobrenome,
+      this.dataNascimento,
       this.senha,
       this.endereco,
       this.fotoPerfil,
@@ -41,6 +44,7 @@ class Usuario {
     telefone = json['telefone'];
     nome = json['nome'];
     sobrenome = json['sobrenome'];
+    dataNascimento = json['data_nascimento'];
     senha = json['senha'];
     endereco = json['endereco'] != null
         ? new Endereco.fromJson(json['endereco'])
@@ -56,6 +60,7 @@ class Usuario {
     data['telefone'] = this.telefone;
     data['nome'] = this.nome;
     data['sobrenome'] = this.sobrenome;
+    data['data_nascimento'] = this.dataNascimento;
     data['senha'] = this.senha;
     if (this.endereco != null) {
       data['endereco'] = this.endereco.toJson();

@@ -114,11 +114,11 @@ class _IntroLogadoPageState extends State<IntroLogadoPage>
   _buildForm() {
     return Column(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Container(
-          height: 150,
-          width: 150,
+          height: 200,
+          width: 200,
           child: ClipOval(
             child: _controller.usuario.fotoPerfil != null
                 ? FadeInImage.assetNetwork(
@@ -138,6 +138,27 @@ class _IntroLogadoPageState extends State<IntroLogadoPage>
             'Bem vindo ${_controller.usuario.nome}',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+          ),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        FadeTransition(
+          opacity: animationLAbel,
+          child: Text(
+            _controller.usuario.telefone,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        FadeTransition(
+          opacity: animationLAbel,
+          child: Text(
+            'Contato ${_controller.usuario.telefone}',
+            textAlign: TextAlign.center,
           ),
         ),
         SizedBox(
