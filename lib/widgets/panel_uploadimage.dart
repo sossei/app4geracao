@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app4geracao/control/web/aws.dart';
+import 'package:app4geracao/control/web/uploadfile.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 
 const Color kLightGray = Color(0xFFF1F0F5);
@@ -202,6 +201,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
     image = await ImagePicker.pickImage(
       source: ImageSource.gallery,
     );
+
     await _uploadFile();
     setState(() {});
   }
@@ -211,22 +211,8 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
       isUploading = true;
     });
     try {
-      String url = '$awsurl/uploadfile';
-      String base64REsult = base64.encode(image.readAsBytesSync());
-      Map<String, dynamic> body = {
-        'body': base64REsult,
-        'extension': path.extension(image.path),
-      };
-      var response = await http
-          .put(url,
-              headers: awskey,
-              body: jsonEncode(body),
-              encoding: Encoding.getByName('UTF-8'))
-          .timeout(Duration(seconds: 10));
-
-      String nomeDoArquivo = response.body;
-      debugPrint(nomeDoArquivo);
-      if (onImageUploaded != null) onImageUploaded(nomeDoArquivo);
+      String fn = await UploadFile.uploadFile(image.readAsBytesSync());
+      if (onImageUploaded != null) onImageUploaded(fn);
     } catch (e, s) {
       debugPrint('$e - $s');
     }
