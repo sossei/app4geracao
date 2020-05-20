@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           fit: BoxFit.cover,
         ),
         Scaffold(
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,

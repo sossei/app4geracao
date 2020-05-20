@@ -1,26 +1,24 @@
 import 'dart:convert';
 
-import 'package:app4geracao/control/preferences/estabelecimento_pref.dart';
-import 'package:app4geracao/model/usuario.dart';
+import 'package:app4geracao/model/estabelecimento.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UsuarioPref {
-  final key = 'usario_key';
-  saveUsuario(Usuario usuario) async {
+class EstabelecimentoPref {
+  final key = 'estabelecimento_key';
+  saveEstabelecimento(Estabelecimento estabelecimento) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String json = jsonEncode(usuario.toJson());
+    String json = jsonEncode(estabelecimento.toJson());
     await prefs.setString(key, json);
   }
 
-  Future<Usuario> getUsuario() async {
+  Future<Estabelecimento> getEstabelecimento() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String json = prefs.getString(key);
     if (json == null) return null;
-    return Usuario.fromJson(jsonDecode(json));
+    return Estabelecimento.fromJson(jsonDecode(json));
   }
 
   clear() async {
-    await EstabelecimentoPref().clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, null);
   }

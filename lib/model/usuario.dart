@@ -1,98 +1,85 @@
-// {
-//     "email":"viny.sossei@gmail.com",
-//     "telefone":"",
-//     "nome":"Vinicius Sossei",
-//     "sobrenome":"Sakugawa",
-//     "data_nascimento":"05",
-//     "senha":"abcd",
-//     "endereco":{
-//         "rua":"Av.Humberto Martignoni",
-//         "numero":"545",
-//         "cidade":"Piraju",
-//         "estado":"SP"
-//     },
-//     "foto_perfil":"url_foto",
-//     "notificardia":true,
-//     "notificarhora":true
-// }
 class Usuario {
-  String email;
-  String telefone;
-  String nome;
-  String sobrenome;
   String dataNascimento;
-  String senha;
+  String email;
   Endereco endereco;
+  String estabelecimento;
   String fotoPerfil;
+  String nome;
   bool notificardia;
   bool notificarhora;
+  String senha;
+  String sobrenome;
+  String telefone;
 
   Usuario(
-      {this.email,
-      this.telefone,
-      this.nome,
-      this.sobrenome,
-      this.dataNascimento,
-      this.senha,
+      {this.dataNascimento,
+      this.email,
       this.endereco,
+      this.estabelecimento,
       this.fotoPerfil,
+      this.nome,
       this.notificardia,
-      this.notificarhora});
+      this.notificarhora,
+      this.senha,
+      this.sobrenome,
+      this.telefone});
 
   Usuario.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    telefone = json['telefone'];
-    nome = json['nome'];
-    sobrenome = json['sobrenome'];
     dataNascimento = json['data_nascimento'];
-    senha = json['senha'];
+    email = json['email'];
     endereco = json['endereco'] != null
         ? new Endereco.fromJson(json['endereco'])
         : null;
+    estabelecimento = json['estabelecimento'];
     fotoPerfil = json['foto_perfil'];
+    nome = json['nome'];
     notificardia = json['notificardia'];
     notificarhora = json['notificarhora'];
+    senha = json['senha'];
+    sobrenome = json['sobrenome'];
+    telefone = json['telefone'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['telefone'] = this.telefone;
-    data['nome'] = this.nome;
-    data['sobrenome'] = this.sobrenome;
     data['data_nascimento'] = this.dataNascimento;
-    data['senha'] = this.senha;
+    data['email'] = this.email;
     if (this.endereco != null) {
       data['endereco'] = this.endereco.toJson();
     }
+    data['estabelecimento'] = this.estabelecimento;
     data['foto_perfil'] = this.fotoPerfil;
+    data['nome'] = this.nome;
     data['notificardia'] = this.notificardia;
     data['notificarhora'] = this.notificarhora;
+    data['senha'] = this.senha;
+    data['sobrenome'] = this.sobrenome;
+    data['telefone'] = this.telefone;
     return data;
   }
 }
 
 class Endereco {
-  String rua;
-  String numero;
   String cidade;
   String estado;
+  String numero;
+  String rua;
 
-  Endereco({this.rua, this.numero, this.cidade, this.estado});
+  Endereco({this.cidade, this.estado, this.numero, this.rua});
 
   Endereco.fromJson(Map<String, dynamic> json) {
-    rua = json['rua'];
-    numero = json['numero'];
     cidade = json['cidade'];
     estado = json['estado'];
+    numero = json['numero'];
+    rua = json['rua'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rua'] = this.rua;
-    data['numero'] = this.numero;
     data['cidade'] = this.cidade;
     data['estado'] = this.estado;
+    data['numero'] = this.numero;
+    data['rua'] = this.rua;
     return data;
   }
 }
