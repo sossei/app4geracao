@@ -177,7 +177,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                                 child: Container(
                                   color: Theme.of(context).primaryColor,
                                   child: Image.network(
-                                    awss3 + trabalho.servico.foto,
+                                    awss3 + 't128_' + trabalho.servico.foto,
                                     height: 36,
                                     width: 36,
                                     fit: BoxFit.cover,

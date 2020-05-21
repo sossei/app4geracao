@@ -117,7 +117,9 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
                     child: _controller.usuario.fotoPerfil != null
                         ? FadeInImage.assetNetwork(
                             placeholder: 'assets/images/perfil.jpg',
-                            image: awss3 + _controller.usuario.fotoPerfil,
+                            image: awss3 +
+                                't512_' +
+                                _controller.usuario.fotoPerfil,
                             fit: BoxFit.fitWidth,
                           )
                         : Image.asset('assets/images/perfil.jpg'),
@@ -214,7 +216,7 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
                         ? FadeInImage.assetNetwork(
                             placeholder: 'assets/images/perfil.jpg',
                             image:
-                                '$awss3${_controller.estabelecimento.fotos[0]}',
+                                '${awss3}t128_${_controller.estabelecimento.fotos[0]}',
                             fit: BoxFit.fitWidth,
                           )
                         : Image.asset('assets/images/perfil.jpg'),

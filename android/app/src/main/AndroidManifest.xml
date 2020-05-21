@@ -9,7 +9,7 @@
 <uses-feature android:name="android.hardware.camera" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="4 Geração"
+        android:label="Barber 4°"
         android:icon="@mipmap/ic_launcher">
         <activity
           android:name="com.yalantis.ucrop.UCropActivity"
