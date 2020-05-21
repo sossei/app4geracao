@@ -209,7 +209,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
                                   ),
-                                  Text(trabalho.servico.tempo,
+                                  Text(trabalho.servico.tempoFormatted,
                                       style: TextStyle(fontSize: 14)),
                                 ],
                               ),

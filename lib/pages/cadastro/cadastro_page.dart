@@ -64,263 +64,116 @@ class _CadastroPageState extends State<CadastroPage> {
   }
 
   _buildFormCliente() {
-    return Form(
-        key: _controller.formCliente,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            SizedBox(
-              height: 32,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Text('Foto'),
-                      UploadImageWidget(
-                        onImageUploaded: (url) {
-                          _controller.usuario.fotoPerfil =
-                              url.replaceAll("\"", '');
-                        },
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _email,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(_email, _telefone);
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        initialValue: _controller.usuario.email,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          if (!value.contains('@') || !value.contains('.'))
-                            return 'Campo email inválido!';
-
-                          _controller.usuario.email = value;
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Digite seu e-mail',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                          labelText: 'E-mail',
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _telefone,
-                        inputFormatters: [maskCelular],
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(_telefone, _nome);
-                        },
-                        keyboardType: TextInputType.phone,
-                        initialValue: _controller.usuario.telefone,
-                        validator: (value) {
-                          value = maskCelular.getUnmaskedText();
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          if (value.length < 11)
-                            return 'Celulcar inválido. Exemplo correto: (12) 12345-6789';
-                          _controller.usuario.telefone =
-                              maskCelular.getMaskedText();
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          hintText: '(12) 12345-6789',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                          labelText: 'Celular',
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _nome,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(_nome, _sobrenome);
-                        },
-                        textCapitalization: TextCapitalization.words,
-                        initialValue: _controller.usuario.nome,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          _controller.usuario.nome = value;
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Nome',
-                          hintText: 'Digite seu nome',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _sobrenome,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(_sobrenome, _dataNascimento);
-                        },
-                        textCapitalization: TextCapitalization.words,
-                        initialValue: _controller.usuario.sobrenome,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          _controller.usuario.sobrenome = value;
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Sobrenome',
-                          hintText: 'Digite seu sobrenome',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _dataNascimento,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (term) {
-                          _fieldFocusChange(_dataNascimento, _senha);
-                        },
-                        keyboardType: TextInputType.datetime,
-                        initialValue: _controller.usuario.dataNascimento,
-                        validator: (value) {
-                          value = maskDataNascimento.getUnmaskedText();
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          _controller.usuario.dataNascimento =
-                              maskDataNascimento.getMaskedText();
-                          return null;
-                        },
-                        inputFormatters: [maskDataNascimento],
-                        decoration: InputDecoration(
-                          labelText: 'Data nascimento',
-                          hintText: '00/00/0000',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        focusNode: _senha,
-                        initialValue: _controller.usuario.senha,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Campo obrigatório';
-                          if (value.length < 6) return 'Mínimo 6 caracteres';
-                          _controller.usuario.senha = value;
-                          return null;
-                        },
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Senha',
-                          hintText: 'Digite sua senha',
-                          labelStyle:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          border: OutlineInputBorder(),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF402719),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            RaisedButton(
-              onPressed: () {
-                _controller.cadastro();
-              },
-              color: Theme.of(context).accentColor,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 24),
-                child: Text(
-                  'Prosseguir',
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              textColor: Color(0xFFFFFFFF),
-            )
-          ],
-        ));
-  }
-
-  _buildFormEndereco() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 32),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
       child: Form(
           key: _controller.formCliente,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              SizedBox(
+                height: 32,
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        Text('Foto'),
+                        UploadImageWidget(
+                          onImageUploaded: (url) {
+                            _controller.usuario.fotoPerfil =
+                                url.replaceAll("\"", '');
+                          },
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
                         TextFormField(
-                          focusNode: _rua,
+                          focusNode: _email,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (term) {
-                            _fieldFocusChange(_rua, _numero);
+                            _fieldFocusChange(_email, _telefone);
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          initialValue: _controller.usuario.email,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Campo obrigatório';
+                            if (!value.contains('@') || !value.contains('.'))
+                              return 'Campo email inválido!';
+
+                            _controller.usuario.email = value;
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Digite seu e-mail',
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF402719),
+                              ),
+                            ),
+                            labelText: 'E-mail',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          focusNode: _telefone,
+                          inputFormatters: [maskCelular],
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (term) {
+                            _fieldFocusChange(_telefone, _nome);
+                          },
+                          keyboardType: TextInputType.phone,
+                          initialValue: _controller.usuario.telefone,
+                          validator: (value) {
+                            value = maskCelular.getUnmaskedText();
+                            if (value.isEmpty) return 'Campo obrigatório';
+                            if (value.length < 11)
+                              return 'Celulcar inválido. Exemplo correto: (12) 12345-6789';
+                            _controller.usuario.telefone =
+                                maskCelular.getMaskedText();
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: '(12) 12345-6789',
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF402719),
+                              ),
+                            ),
+                            labelText: 'Celular',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          focusNode: _nome,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (term) {
+                            _fieldFocusChange(_nome, _sobrenome);
                           },
                           textCapitalization: TextCapitalization.words,
-                          initialValue: _controller.endereco.rua,
+                          initialValue: _controller.usuario.nome,
                           validator: (value) {
                             if (value.isEmpty) return 'Campo obrigatório';
-                            _controller.endereco.rua = value;
+                            _controller.usuario.nome = value;
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Digite o nome da rua',
+                            labelText: 'Nome',
+                            hintText: 'Digite seu nome',
                             labelStyle:
                                 TextStyle(color: Theme.of(context).accentColor),
                             border: OutlineInputBorder(),
@@ -329,83 +182,85 @@ class _CadastroPageState extends State<CadastroPage> {
                                 color: Color(0xFF402719),
                               ),
                             ),
-                            labelText: 'Rua',
                           ),
                         ),
                         SizedBox(
                           height: 16,
                         ),
                         TextFormField(
-                          focusNode: _numero,
+                          focusNode: _sobrenome,
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (term) {
-                            _fieldFocusChange(_numero, _estado);
+                            _fieldFocusChange(_sobrenome, _dataNascimento);
                           },
-                          initialValue: _controller.endereco.numero,
-                          validator: (value) {
-                            if (value.isEmpty) return 'Campo obrigatório';
-                            _controller.endereco.numero = value;
-                            return null;
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Número',
-                            hintText: 'Digite o número',
-                            labelStyle:
-                                TextStyle(color: Theme.of(context).accentColor),
-                            border: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF402719),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextFormField(
-                          focusNode: _estado,
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (term) {
-                            _fieldFocusChange(_estado, _cidade);
-                          },
-                          maxLength: 2,
-                          initialValue: _controller.endereco.estado,
-                          textCapitalization: TextCapitalization.characters,
-                          validator: (value) {
-                            if (value.isEmpty) return 'Campo obrigatório';
-                            _controller.endereco.estado = value;
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Estado (sigla)',
-                            hintText: 'Digite o estado',
-                            labelStyle:
-                                TextStyle(color: Theme.of(context).accentColor),
-                            border: OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF402719),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextFormField(
-                          focusNode: _cidade,
                           textCapitalization: TextCapitalization.words,
-                          initialValue: _controller.endereco.cidade,
+                          initialValue: _controller.usuario.sobrenome,
                           validator: (value) {
                             if (value.isEmpty) return 'Campo obrigatório';
-                            _controller.endereco.cidade = value;
+                            _controller.usuario.sobrenome = value;
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: 'Cidade',
-                            hintText: 'Digite a cidade',
+                            labelText: 'Sobrenome',
+                            hintText: 'Digite seu sobrenome',
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF402719),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          focusNode: _dataNascimento,
+                          textInputAction: TextInputAction.next,
+                          onFieldSubmitted: (term) {
+                            _fieldFocusChange(_dataNascimento, _senha);
+                          },
+                          keyboardType: TextInputType.datetime,
+                          initialValue: _controller.usuario.dataNascimento,
+                          validator: (value) {
+                            value = maskDataNascimento.getUnmaskedText();
+                            if (value.isEmpty) return 'Campo obrigatório';
+                            _controller.usuario.dataNascimento =
+                                maskDataNascimento.getMaskedText();
+                            return null;
+                          },
+                          inputFormatters: [maskDataNascimento],
+                          decoration: InputDecoration(
+                            labelText: 'Data nascimento',
+                            hintText: '00/00/0000',
+                            labelStyle:
+                                TextStyle(color: Theme.of(context).accentColor),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF402719),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          focusNode: _senha,
+                          initialValue: _controller.usuario.senha,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Campo obrigatório';
+                            if (value.length < 6) return 'Mínimo 6 caracteres';
+                            _controller.usuario.senha = value;
+                            return null;
+                          },
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Senha',
+                            hintText: 'Digite sua senha',
                             labelStyle:
                                 TextStyle(color: Theme.of(context).accentColor),
                             border: OutlineInputBorder(),
@@ -421,39 +276,171 @@ class _CadastroPageState extends State<CadastroPage> {
                   ),
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      returnSplash(context);
-                    },
-                    color: Theme.of(context).accentColor,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 24),
-                      child: Text(
-                        'Pular',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
+              RaisedButton(
+                onPressed: () {
+                  _controller.cadastro();
+                },
+                color: Theme.of(context).accentColor,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Text(
+                    'Prosseguir',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                textColor: Color(0xFFFFFFFF),
+              )
+            ],
+          )),
+    );
+  }
+
+  _buildFormEndereco() {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 32),
+        child: Form(
+            key: _controller.formCliente,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            focusNode: _rua,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (term) {
+                              _fieldFocusChange(_rua, _numero);
+                            },
+                            textCapitalization: TextCapitalization.words,
+                            initialValue: _controller.endereco.rua,
+                            validator: (value) {
+                              if (value.isEmpty) return 'Campo obrigatório';
+                              _controller.endereco.rua = value;
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Digite o nome da rua',
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).accentColor),
+                              border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF402719),
+                                ),
+                              ),
+                              labelText: 'Rua',
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            focusNode: _numero,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (term) {
+                              _fieldFocusChange(_numero, _estado);
+                            },
+                            initialValue: _controller.endereco.numero,
+                            validator: (value) {
+                              if (value.isEmpty) return 'Campo obrigatório';
+                              _controller.endereco.numero = value;
+                              return null;
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: 'Número',
+                              hintText: 'Digite o número',
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).accentColor),
+                              border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF402719),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            focusNode: _estado,
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (term) {
+                              _fieldFocusChange(_estado, _cidade);
+                            },
+                            maxLength: 2,
+                            initialValue: _controller.endereco.estado,
+                            textCapitalization: TextCapitalization.characters,
+                            validator: (value) {
+                              if (value.isEmpty) return 'Campo obrigatório';
+                              _controller.endereco.estado = value;
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Estado (sigla)',
+                              hintText: 'Digite o estado',
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).accentColor),
+                              border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF402719),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            focusNode: _cidade,
+                            textCapitalization: TextCapitalization.words,
+                            initialValue: _controller.endereco.cidade,
+                            validator: (value) {
+                              if (value.isEmpty) return 'Campo obrigatório';
+                              _controller.endereco.cidade = value;
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Cidade',
+                              hintText: 'Digite a cidade',
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).accentColor),
+                              border: OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF402719),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    textColor: Color(0xFFFFFFFF),
                   ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Expanded(
-                    child: RaisedButton(
+                ),
+                Row(
+                  children: <Widget>[
+                    RaisedButton(
                       onPressed: () {
-                        _controller
-                            .editar()
-                            .then((value) => returnSplash(context));
+                        returnSplash(context);
                       },
                       color: Theme.of(context).accentColor,
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 24),
                         child: Text(
-                          'Prosseguir',
+                          'Pular',
                           style: TextStyle(
                             fontSize: 24,
                           ),
@@ -461,11 +448,34 @@ class _CadastroPageState extends State<CadastroPage> {
                       ),
                       textColor: Color(0xFFFFFFFF),
                     ),
-                  )
-                ],
-              ),
-            ],
-          )),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Expanded(
+                      child: RaisedButton(
+                        onPressed: () {
+                          _controller
+                              .editar()
+                              .then((value) => returnSplash(context));
+                        },
+                        color: Theme.of(context).accentColor,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 24),
+                          child: Text(
+                            'Prosseguir',
+                            style: TextStyle(
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                        textColor: Color(0xFFFFFFFF),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            )),
+      ),
     );
   }
 

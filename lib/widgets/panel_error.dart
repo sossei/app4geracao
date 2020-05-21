@@ -29,9 +29,11 @@ class PanelError extends StatelessWidget {
         ),
       );
     } else {
-      return Padding(
-        padding: EdgeInsets.all(16),
-        child: _body(),
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: _body(),
+        ),
       );
     }
   }

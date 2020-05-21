@@ -26,23 +26,6 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
     }, _$titleAtom, name: '${_$titleAtom.name}_set');
   }
 
-  final _$isRequestingAtom = Atom(name: '_CadastroControllerBase.isRequesting');
-
-  @override
-  bool get isRequesting {
-    _$isRequestingAtom.context.enforceReadPolicy(_$isRequestingAtom);
-    _$isRequestingAtom.reportObserved();
-    return super.isRequesting;
-  }
-
-  @override
-  set isRequesting(bool value) {
-    _$isRequestingAtom.context.conditionallyRunInAction(() {
-      super.isRequesting = value;
-      _$isRequestingAtom.reportChanged();
-    }, _$isRequestingAtom, name: '${_$isRequestingAtom.name}_set');
-  }
-
   final _$isEnderecoAtom = Atom(name: '_CadastroControllerBase.isEndereco');
 
   @override
@@ -58,6 +41,23 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
       super.isEndereco = value;
       _$isEnderecoAtom.reportChanged();
     }, _$isEnderecoAtom, name: '${_$isEnderecoAtom.name}_set');
+  }
+
+  final _$isRequestingAtom = Atom(name: '_CadastroControllerBase.isRequesting');
+
+  @override
+  bool get isRequesting {
+    _$isRequestingAtom.context.enforceReadPolicy(_$isRequestingAtom);
+    _$isRequestingAtom.reportObserved();
+    return super.isRequesting;
+  }
+
+  @override
+  set isRequesting(bool value) {
+    _$isRequestingAtom.context.conditionallyRunInAction(() {
+      super.isRequesting = value;
+      _$isRequestingAtom.reportChanged();
+    }, _$isRequestingAtom, name: '${_$isRequestingAtom.name}_set');
   }
 
   final _$msgErroAtom = Atom(name: '_CadastroControllerBase.msgErro');
@@ -79,28 +79,6 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
 
   final _$_CadastroControllerBaseActionController =
       ActionController(name: '_CadastroControllerBase');
-
-  @override
-  dynamic setTitle(String pTitle) {
-    final _$actionInfo =
-        _$_CadastroControllerBaseActionController.startAction();
-    try {
-      return super.setTitle(pTitle);
-    } finally {
-      _$_CadastroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setIsEndereco(bool isEndereco) {
-    final _$actionInfo =
-        _$_CadastroControllerBaseActionController.startAction();
-    try {
-      return super.setIsEndereco(isEndereco);
-    } finally {
-      _$_CadastroControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic setMsgErro(String msg) {
@@ -125,9 +103,31 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
   }
 
   @override
+  dynamic setTitle(String pTitle) {
+    final _$actionInfo =
+        _$_CadastroControllerBaseActionController.startAction();
+    try {
+      return super.setTitle(pTitle);
+    } finally {
+      _$_CadastroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setIsEndereco(bool isEndereco) {
+    final _$actionInfo =
+        _$_CadastroControllerBaseActionController.startAction();
+    try {
+      return super.setIsEndereco(isEndereco);
+    } finally {
+      _$_CadastroControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'title: ${title.toString()},isRequesting: ${isRequesting.toString()},isEndereco: ${isEndereco.toString()},msgErro: ${msgErro.toString()}';
+        'title: ${title.toString()},isEndereco: ${isEndereco.toString()},isRequesting: ${isRequesting.toString()},msgErro: ${msgErro.toString()}';
     return '{$string}';
   }
 }

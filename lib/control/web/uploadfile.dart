@@ -27,16 +27,18 @@ class UploadFile {
 
   static Future<String> uploadFile(List<int> contents) async {
     Image editImage = decodeImage(contents);
-    await _uploadFileAux(contents, 'original_');
+    String filename = await _uploadFileAux(contents, 'original_');
+    filename = filename.replaceAll('"', '');
     var cropped = _cropImage(editImage);
     var thumbnail128 = _resizeCroppedImage(cropped, 128);
-    await _uploadFileAux(thumbnail128, 't128_');
+    await _uploadFileAux(thumbnail128, 't128_', fileName: filename);
     var thumbnail512 = _resizeCroppedImage(cropped, 512);
-    String filename = await _uploadFileAux(thumbnail512, 't512_');
+    await _uploadFileAux(thumbnail512, 't512_', fileName: filename);
     return filename;
   }
 
-  static _uploadFileAux(List<int> contents, String leading) async {
+  static _uploadFileAux(List<int> contents, String leading,
+      {String fileName}) async {
     try {
       String url = '$awsurl/uploadfile';
       String base64REsult = base64.encode(contents);
@@ -45,6 +47,7 @@ class UploadFile {
         'extension': '.jpg',
         'leading': leading,
       };
+      if (fileName != null) body.addAll({'fileName': fileName});
       var response = await http
           .put(url,
               headers: awskey,

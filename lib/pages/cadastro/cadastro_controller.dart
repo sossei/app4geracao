@@ -16,11 +16,21 @@ abstract class _CadastroControllerBase with Store {
   @observable
   String title = 'Cadastro';
   @observable
-  bool isRequesting = false;
-  @observable
   bool isEndereco = false;
   @observable
+  bool isRequesting = false;
+  @observable
   String msgErro;
+  @action
+  setMsgErro(String msg) {
+    msgErro = msg;
+    isRequesting = false;
+  }
+
+  @action
+  _setRequesting(bool pRequesting) {
+    isRequesting = pRequesting;
+  }
 
   @action
   setTitle(String pTitle) {
@@ -31,17 +41,6 @@ abstract class _CadastroControllerBase with Store {
   setIsEndereco(bool isEndereco) {
     this.isEndereco = isEndereco;
     if (isEndereco) setTitle('Endereço');
-  }
-
-  @action
-  setMsgErro(String msg) {
-    msgErro = msg;
-    isRequesting = false;
-  }
-
-  @action
-  _setRequesting(bool pRequesting) {
-    isRequesting = pRequesting;
   }
 
   final formCliente = GlobalKey<FormState>();

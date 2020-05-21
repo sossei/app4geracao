@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-class PanelRequesting extends StatelessWidget {
+import 'button_4geracao.dart';
+
+class PanelEmpty extends StatelessWidget {
   final String descricao;
+  final Function action;
+  final String descAction;
   final bool withCard;
-  const PanelRequesting(
-      {Key key, this.descricao = 'Carregando', this.withCard = true})
+  const PanelEmpty(
+      {Key key,
+      this.descricao = 'OOPs! Não foi encontrado nenhum dado',
+      this.action,
+      this.descAction = 'Tentar novamente',
+      this.withCard = true})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -34,12 +42,25 @@ class PanelRequesting extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        CircularProgressIndicator(),
-        SizedBox(
-          height: 24,
+        Icon(
+          Icons.announcement,
+          size: 48,
         ),
-        Text(descricao),
+        SizedBox(height: 24),
+        Text(
+          descricao,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 24),
+        Button4Geracao(
+          title: descAction,
+          action: action,
+        )
       ],
     );
   }

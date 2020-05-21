@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/control/web/uploadfile.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +10,31 @@ const Color kLightGray = Color(0xFFF1F0F5);
 
 class UploadImageWidget extends StatefulWidget {
   final Function(String urlFile) onImageUploaded;
+  final String initImage;
+  final String placeHolder;
 
-  const UploadImageWidget({Key key, this.onImageUploaded}) : super(key: key);
+  const UploadImageWidget(
+      {Key key,
+      this.onImageUploaded,
+      this.initImage,
+      this.placeHolder = 'assets/images/perfil.jpg'})
+      : super(key: key);
+
   @override
   _UploadImageWidgetState createState() =>
-      _UploadImageWidgetState(onImageUploaded);
+      _UploadImageWidgetState(onImageUploaded, initImage, placeHolder);
 }
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
   final Function(String urlFile) onImageUploaded;
+  final String initImage;
+  final String placeHolder;
+
   bool isUploading = false;
-  _UploadImageWidgetState(this.onImageUploaded);
+
+  _UploadImageWidgetState(
+      this.onImageUploaded, this.initImage, this.placeHolder);
+
   @override
   Widget build(BuildContext context) {
     return _buildBody();
@@ -113,7 +125,9 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
       child: CircleAvatar(
         backgroundImage: image != null
             ? FileImage(image)
-            : Image.asset('assets/images/perfil.jpg').image,
+            : initImage == null
+                ? Image.asset(placeHolder).image
+                : Image.network(initImage).image,
         radius: 200.0,
       ),
     );

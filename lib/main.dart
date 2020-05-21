@@ -10,26 +10,23 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFE7E3D0),
+        scaffoldBackgroundColor: Color(0xFFF7F3F0),
         iconTheme: IconThemeData(
-          color: Color(0xFF261610),
+          color: Color(0xFF5B4D33),
         ),
         bottomAppBarColor: Color(0xFFFFFFFF),
-        primaryColor: Color(0xFF261610),
+        primaryColor: Color(0xFF5B4D33),
         primarySwatch: Colors.blue,
-        backgroundColor: Color(0xFFE7E3D0),
-        accentColor: Color(0xFF261610),
-        fontFamily: 'gloucester',
-        buttonColor: Color(0xFF261610),
+        backgroundColor: Color(0xFFF7F3F0),
+        accentColor: Color(0xFF5B4D33),
+        fontFamily: 'athiti',
+        buttonColor: Color(0xFF5B4D33),
         textTheme: TextTheme(
-          bodyText1: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF402719),
-          ),
-          bodyText2: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF402719),
-          ),
+          headline6: TextStyle(
+              fontSize: 16, fontFamily: 'antonio', fontWeight: FontWeight.bold),
+          button: TextStyle(fontSize: 16, fontFamily: 'antonio'),
+          bodyText1: TextStyle(fontSize: 16, fontFamily: 'athiti'),
+          bodyText2: TextStyle(fontSize: 16, fontFamily: 'athiti'),
         ),
       ),
       home: SplashScreen(),

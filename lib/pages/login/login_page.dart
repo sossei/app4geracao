@@ -65,12 +65,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _buildBody() {
-    return Observer(
-      builder: (_) {
-        return _controller.msgErro != null
-            ? _buildError()
-            : _controller.isRequesting ? _buildRequesting() : _buildPanel();
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
       },
+      child: Observer(
+        builder: (_) {
+          return _controller.msgErro != null
+              ? _buildError()
+              : _controller.isRequesting ? _buildRequesting() : _buildPanel();
+        },
+      ),
     );
   }
 

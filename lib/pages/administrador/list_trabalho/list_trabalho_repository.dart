@@ -32,7 +32,7 @@ class ListTrabalhoRepository {
     servico.descricao = 'Corte de cabelo';
     servico.foto = '8fccd756-f38a-4b14-8774-e52ea56cd7eb.jpg';
     servico.valor = 5000;
-    servico.tempo = '1hr';
+    servico.tempo = 30;
     Barbeiro barbeiro = Barbeiro();
     barbeiro.foto = '077f846f-e610-442a-9a51-b7be688bb948 ';
     barbeiro.nome = 'Rafael';

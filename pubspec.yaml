@@ -25,6 +25,7 @@ dependencies:
   mask_text_input_formatter: ^1.0.6
   intl: ^0.16.1
   image: ^2.1.12
+  flutter_masked_text: ^0.7.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.3
@@ -47,6 +48,16 @@ flutter:
       fonts:
         - asset: assets/font/Rutheride.otf
         - asset: assets/font/Rutheride.otf
+          weight: 700
+    - family: athiti
+      fonts:
+        - asset: assets/font/athiti-regular.ttf
+        - asset: assets/font/athiti-semi-bold.ttf
+          weight: 700
+    - family: antonio
+      fonts:
+        - asset: assets/font/antonio-regular.ttf
+        - asset: assets/font/antonio-bold.ttf
           weight: 700
 
 flutter_native_splash:
