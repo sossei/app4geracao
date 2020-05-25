@@ -63,7 +63,7 @@ class Trabalho {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['timestamp'] = this.trabTimestamp;
+    data['trabTimestamp'] = this.trabTimestamp;
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
     }
@@ -84,7 +84,7 @@ class Trabalho {
   Map<String, dynamic> toJsonWeb() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['timestamp'] = this.trabTimestamp;
+    data['trabTimestamp'] = this.trabTimestamp;
     data['usuario'] = usuario.email;
     data['servico'] = servico.id;
     data['barbeiro'] = barbeiro.id;

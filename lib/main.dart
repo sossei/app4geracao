@@ -46,11 +46,13 @@ class MyApp extends StatelessWidget {
 
   void firebaseCloudMessaging_Listeners() {
     if (Platform.isIOS) iOS_Permission();
-
+    _firebaseMessaging.setAutoInitEnabled(true);
     _firebaseMessaging.getToken().then((token) {
       print('Token: $token');
     });
-
+    _firebaseMessaging.onTokenRefresh.asBroadcastStream().listen((token) {
+      print('Refersh token: $token');
+    });
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print('on message $message');

@@ -3,6 +3,7 @@ import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/pages/perfil/perfil_controller.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -166,8 +167,9 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
         Button4Geracao(
           title: 'Editar perfil',
           action: () async {
-            await UsuarioPref().clear();
-            returnSplash(context);
+            // await FirebaseMessaging().deleteInstanceID();
+            // await UsuarioPref().clear();
+            // returnSplash(context);
           },
         ),
         SizedBox(
@@ -183,6 +185,7 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
             ),
           ),
           onTap: () async {
+            await FirebaseMessaging().deleteInstanceID();
             await UsuarioPref().clear();
             returnSplash(context);
           },

@@ -12,6 +12,7 @@ class Usuario {
   String senha;
   String sobrenome;
   String telefone;
+  String token;
   String get urlFoto75 =>
       awss3 + 't75_' + (fotoPerfil == null ? '' : fotoPerfil);
   String get urlFoto150 =>
@@ -29,7 +30,8 @@ class Usuario {
       this.notificarhora,
       this.senha,
       this.sobrenome,
-      this.telefone});
+      this.telefone,
+      this.token});
 
   Usuario.fromJson(Map<String, dynamic> json) {
     dataNascimento = json['data_nascimento'];
@@ -45,6 +47,7 @@ class Usuario {
     senha = json['senha'];
     sobrenome = json['sobrenome'];
     telefone = json['telefone'];
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +65,7 @@ class Usuario {
     data['senha'] = this.senha;
     data['sobrenome'] = this.sobrenome;
     data['telefone'] = this.telefone;
+    data['token'] = this.token;
     return data;
   }
 }

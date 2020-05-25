@@ -15,6 +15,11 @@ class _LoginPageState extends State<LoginPage> {
   BuildContext context;
   LoginController _controller = LoginController();
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     this.context = context;
     return Stack(
