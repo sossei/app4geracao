@@ -11,6 +11,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Barber 4°"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+          android:name="com.google.firebase.messaging.default_notification_icon"
+          android:resource="@drawable/notification_512" />
+        <meta-data
+          android:name="com.google.firebase.messaging.default_notification_color"
+          android:resource="@color/colorAccent" />
         <activity
           android:name="com.yalantis.ucrop.UCropActivity"
           android:screenOrientation="portrait"
