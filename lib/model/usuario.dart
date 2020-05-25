@@ -1,3 +1,5 @@
+import 'package:app4geracao/control/web/aws.dart';
+
 class Usuario {
   String dataNascimento;
   String email;
@@ -10,7 +12,12 @@ class Usuario {
   String senha;
   String sobrenome;
   String telefone;
-
+  String get urlFoto75 =>
+      awss3 + 't75_' + (fotoPerfil == null ? '' : fotoPerfil);
+  String get urlFoto150 =>
+      awss3 + 't150_' + (fotoPerfil == null ? '' : fotoPerfil);
+  String get urlFoto480 =>
+      awss3 + 't480_' + (fotoPerfil == null ? '' : fotoPerfil);
   Usuario(
       {this.dataNascimento,
       this.email,

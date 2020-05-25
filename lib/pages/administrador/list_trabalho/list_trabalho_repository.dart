@@ -40,6 +40,6 @@ class ListTrabalhoRepository {
         barbeiro: barbeiro,
         servico: servico,
         usuario: usuario,
-        timestamp: timeStamp);
+        trabTimestamp: timeStamp);
   }
 }

@@ -89,7 +89,7 @@ class _ListServicoPageState extends State<ListServicoPage>
           child: Card(
             child: ListTile(
               leading: OvalImage(
-                  networkurl: awss3 + 't128_' + servico.foto,
+                  networkurl: servico.urlFoto75,
                   placeholder: 'assets/images/default_servico.png',
                   size: 48),
               title: Text(servico.descricao),

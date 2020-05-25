@@ -1,32 +1,25 @@
-// {
-//   "nome": "Makal",
-//   "foto": "url_foto",
-//   "servicos": [1],
-//   "ultimostrabalhos": ["url_foto1","url_foto2","url_foto3"],
-//   "trabalho": {
-//     "segunda":["08:00","12:00","13:00","17:00"],
-//     "terca":["08:00","12:00","13:00","17:00"],
-//     "quarta":["08:00","12:00","13:00","17:00"],
-//     "quinta":["08:00","12:00","13:00","17:00"],
-//     "sexta":["08:00","12:00","13:00","17:00"],
-//     "sabado":["08:00","12:00"],
-//   }
-// }
+import 'package:app4geracao/control/web/aws.dart';
+
 class Barbeiro {
+  String id;
   String nome;
   String foto;
-  List<int> servicos;
-  List<String> ultimostrabalhos;
+  List<int> servicos = [];
+  List<String> ultimostrabalhos = [];
   Trabalhado trabalho;
-
+  String get urlFoto75 => awss3 + 't75_' + (foto == null ? '' : foto);
+  String get urlFoto150 => awss3 + 't150_' + (foto == null ? '' : foto);
+  String get urlFoto480 => awss3 + 't480_' + (foto == null ? '' : foto);
   Barbeiro(
-      {this.nome,
+      {this.id,
+      this.nome,
       this.foto,
       this.servicos,
       this.ultimostrabalhos,
       this.trabalho});
 
   Barbeiro.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     nome = json['nome'];
     foto = json['foto'];
     servicos = json['servicos'].cast<int>();
@@ -38,10 +31,12 @@ class Barbeiro {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['nome'] = this.nome;
     data['foto'] = this.foto;
-    data['servicos'] = this.servicos;
-    data['ultimostrabalhos'] = this.ultimostrabalhos;
+    data['servicos'] = this.servicos == null ? [] : this.servicos;
+    data['ultimostrabalhos'] =
+        this.ultimostrabalhos == null ? [] : this.ultimostrabalhos;
     if (this.trabalho != null) {
       data['trabalho'] = this.trabalho.toJson();
     }

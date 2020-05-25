@@ -1,3 +1,4 @@
+import 'package:app4geracao/control/web/aws.dart';
 import 'package:intl/intl.dart';
 
 class Servico {
@@ -6,7 +7,9 @@ class Servico {
   int valor;
   int tempo;
   String foto;
-
+  String get urlFoto75 => awss3 + 't75_' + (foto == null ? '' : foto);
+  String get urlFoto150 => awss3 + 't150_' + (foto == null ? '' : foto);
+  String get urlFoto480 => awss3 + 't480_' + (foto == null ? '' : foto);
   Servico({this.id, this.descricao, this.valor, this.tempo, this.foto});
   String get tempoFormatted => tempo == null ? null : durationToString(tempo);
   String get valorFormatted {

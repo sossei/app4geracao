@@ -159,7 +159,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                 : ListView.builder(
                     itemBuilder: (_, pos) {
                       Trabalho trabalho = _controller.trabalhos[pos];
-                      bool isOld = trabalho.timestamp <
+                      bool isOld = trabalho.trabTimestamp <
                           DateTime.now().millisecondsSinceEpoch;
                       if (_controller.isFiltered && isOld) return Container();
                       return Card(
@@ -177,7 +177,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                                 child: Container(
                                   color: Theme.of(context).primaryColor,
                                   child: Image.network(
-                                    awss3 + 't128_' + trabalho.servico.foto,
+                                    trabalho.servico.urlFoto75,
                                     height: 36,
                                     width: 36,
                                     fit: BoxFit.cover,

@@ -84,7 +84,7 @@ abstract class _ListTrabalhoControllerBase with Store {
       setData(DateTime.now());
       List<Trabalho> list =
           await ListTrabalhoRepository().getListTrabalho(data);
-      list.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+      list.sort((a, b) => a.trabTimestamp.compareTo(b.trabTimestamp));
       setTrabalhos(list);
     } catch (e, s) {
       debugPrint('$e - $s');
@@ -98,7 +98,7 @@ abstract class _ListTrabalhoControllerBase with Store {
     try {
       List<Trabalho> list =
           await ListTrabalhoRepository().getListTrabalho(data);
-      list.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+      list.sort((a, b) => a.trabTimestamp.compareTo(b.trabTimestamp));
       setTrabalhos(list);
     } catch (e, s) {
       debugPrint('$e - $s');

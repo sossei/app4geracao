@@ -1,9 +1,8 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/model/usuario.dart';
+import 'package:app4geracao/pages/administrador/administrador_page.dart';
 import 'package:app4geracao/pages/intro/intro_page.dart';
-import 'package:app4geracao/pages/menu/administrador/administrador_page.dart';
-import 'package:app4geracao/pages/perfil/perfil_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -33,11 +32,9 @@ class SplashScreen extends StatelessWidget {
           .then((_) => pushReplacment(context, IntroPage()));
     } else {
       if (usu.estabelecimento != null) {
-        Future.delayed(Duration(seconds: 1))
-            .then((_) => pushReplacment(context, AdministradorPage()));
+        pushReplacment(context, AdministradorPage());
       } else
-        Future.delayed(Duration(seconds: 1))
-            .then((_) => pushReplacment(context, PerfilPage()));
+        pushReplacment(context, AdministradorPage());
     }
   }
 }

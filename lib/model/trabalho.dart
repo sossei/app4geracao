@@ -16,7 +16,8 @@ import 'servico.dart';
 import 'usuario.dart';
 
 class Trabalho {
-  int timestamp;
+  String id;
+  int trabTimestamp;
   Usuario usuario;
   Barbeiro barbeiro;
   Servico servico;
@@ -25,9 +26,10 @@ class Trabalho {
   bool finalizado;
   int rating;
   String feedback;
-
+  DateTime get date => DateTime.fromMillisecondsSinceEpoch(trabTimestamp);
   Trabalho(
-      {this.timestamp,
+      {this.id,
+      this.trabTimestamp,
       this.usuario,
       this.barbeiro,
       this.servico,
@@ -37,9 +39,10 @@ class Trabalho {
       this.rating,
       this.feedback});
   String get timeFormatted => DateFormat('HH:mm')
-      .format(DateTime.fromMillisecondsSinceEpoch(timestamp));
+      .format(DateTime.fromMillisecondsSinceEpoch(trabTimestamp));
   Trabalho.fromJson(Map<String, dynamic> json) {
-    timestamp = json['timestamp'];
+    id = json['id'];
+    trabTimestamp = json['trabTimestamp'];
     usuario =
         json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
     barbeiro = json['barbeiro'] != null
@@ -49,14 +52,15 @@ class Trabalho {
         json['servico'] != null ? new Servico.fromJson(json['servico']) : null;
     antes = json['antes'];
     depois = json['depois'];
-    finalizado = json['finalizado'];
+    finalizado = json['finalizado'] ?? false;
     rating = json['rating'];
     feedback = json['feedback'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['timestamp'] = this.timestamp;
+    data['id'] = this.id;
+    data['timestamp'] = this.trabTimestamp;
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
     }

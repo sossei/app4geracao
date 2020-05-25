@@ -22,6 +22,9 @@ class OvalImage extends StatelessWidget {
                 placeholder: placeholder,
                 image: networkurl,
                 fit: BoxFit.fitWidth,
+                imageErrorBuilder: (context, obj, _) {
+                  return Image.asset(placeholder);
+                },
               )
             : Image.asset(placeholder),
       ),

@@ -100,7 +100,7 @@ class _SaveServicoPageState extends State<SaveServicoPage> {
                       },
                       initImage: _controller.servico.foto == null
                           ? null
-                          : awss3 + 't512_' + _controller.servico.foto,
+                          : awss3 + 't150_' + _controller.servico.foto,
                       placeHolder: 'assets/images/default_servico.png',
                     ),
                     SizedBox(

@@ -12,12 +12,13 @@ class UploadImageWidget extends StatefulWidget {
   final Function(String urlFile) onImageUploaded;
   final String initImage;
   final String placeHolder;
-
+  final double size;
   const UploadImageWidget(
       {Key key,
       this.onImageUploaded,
       this.initImage,
-      this.placeHolder = 'assets/images/perfil.jpg'})
+      this.placeHolder = 'assets/images/perfil.jpg',
+      this.size = 150})
       : super(key: key);
 
   @override
@@ -55,7 +56,8 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             onTap: () => _onAddPhotoClicked(context),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+                borderRadius: new BorderRadius.all(
+                    Radius.elliptical(widget.size, widget.size)),
                 color: Theme.of(context).primaryColor.withOpacity(0.8),
               ),
               child: Padding(
@@ -75,7 +77,8 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             onTap: () => _onTakePicture(context),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+                borderRadius: new BorderRadius.all(
+                    Radius.elliptical(widget.size, widget.size)),
                 color: Theme.of(context).primaryColor.withOpacity(0.8),
               ),
               child: Padding(
@@ -97,18 +100,19 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
         ? Container(
             margin: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+                borderRadius: new BorderRadius.all(
+                    Radius.elliptical(widget.size, widget.size)),
                 color: Colors.black.withOpacity(0.5)),
-            height: 150,
-            width: 150,
+            height: widget.size,
+            width: widget.size,
             child: Center(
                 child: CircularProgressIndicator(
               backgroundColor: Colors.white.withOpacity(0.3),
             )),
           )
         : Container(
-            height: 150,
-            width: 150,
+            height: widget.size,
+            width: widget.size,
           );
   }
 
@@ -118,16 +122,22 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
       decoration: new BoxDecoration(
         color: kDarkGray,
         border: Border.all(color: Colors.black, width: 0.0),
-        borderRadius: new BorderRadius.all(Radius.elliptical(150, 150)),
+        borderRadius:
+            new BorderRadius.all(Radius.elliptical(widget.size, widget.size)),
       ),
-      height: 150,
-      width: 150,
+      height: widget.size,
+      width: widget.size,
       child: CircleAvatar(
         backgroundImage: image != null
             ? FileImage(image)
             : initImage == null
                 ? Image.asset(placeHolder).image
-                : Image.network(initImage).image,
+                : Image.network(
+                    initImage,
+                    errorBuilder: (context, obj, _) {
+                      return Image.asset(placeHolder);
+                    },
+                  ).image,
         radius: 200.0,
       ),
     );

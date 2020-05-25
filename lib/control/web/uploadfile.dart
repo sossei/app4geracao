@@ -27,13 +27,13 @@ class UploadFile {
 
   static Future<String> uploadFile(List<int> contents) async {
     Image editImage = decodeImage(contents);
-    String filename = await _uploadFileAux(contents, 'original_');
+    String filename = await _uploadFileAux(contents, 't480_');
     filename = filename.replaceAll('"', '');
     var cropped = _cropImage(editImage);
-    var thumbnail128 = _resizeCroppedImage(cropped, 128);
-    await _uploadFileAux(thumbnail128, 't128_', fileName: filename);
-    var thumbnail512 = _resizeCroppedImage(cropped, 512);
-    await _uploadFileAux(thumbnail512, 't512_', fileName: filename);
+    var thumbnail75 = _resizeCroppedImage(cropped, 75);
+    await _uploadFileAux(thumbnail75, 't75_', fileName: filename);
+    var thumbnail150 = _resizeCroppedImage(cropped, 150);
+    await _uploadFileAux(thumbnail150, 't150_', fileName: filename);
     return filename;
   }
 
