@@ -1,4 +1,7 @@
-import 'package:app4geracao/control/web/uploadfile.dart';
+import 'dart:convert';
+
+import 'package:app4geracao/control/nav/nav.dart';
+import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/barbeiro.dart';
 import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
@@ -7,6 +10,7 @@ import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_uploadimage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class TrabalhoDetahePage extends StatefulWidget {
@@ -20,26 +24,53 @@ class TrabalhoDetahePage extends StatefulWidget {
 class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height - 100;
+    double height = MediaQuery.of(context).size.height - 150;
     return Container(
       constraints: new BoxConstraints(
         minHeight: 100.0,
         maxHeight: height,
       ),
       padding: EdgeInsets.all(8),
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            panelTrabalho(),
-            Divider(),
-            panelCliente(),
-            Divider(),
-            panelBarbeiro(),
-            Divider(),
-            panelServico(),
-          ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  panelTrabalho(),
+                  Divider(),
+                  panelCliente(),
+                  Divider(),
+                  panelBarbeiro(),
+                  Divider(),
+                  panelServico(),
+                ],
+              ),
+            ),
+          ),
+          buttonSalvar(),
+        ],
+      ),
+    );
+  }
+
+  Widget buttonSalvar() {
+    return RaisedButton(
+      onPressed: () {
+        askTrabalho();
+      },
+      color: Theme.of(context).accentColor,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 24),
+        child: Text(
+          'Cancelar',
+          style: TextStyle(
+            fontSize: 24,
+          ),
         ),
       ),
+      textColor: Color(0xFFFFFFFF),
     );
   }
 
@@ -177,7 +208,6 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
         ),
         Text('Inicio: ${df.format(init)}'),
         Text('Fim: ${df.format(end)}'),
-        Divider(),
         _panelFeedback(trab),
         SizedBox(
           height: 16,
@@ -187,9 +217,11 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
   }
 
   _panelFeedback(trab) {
+    if (!trab.isFinished) return Container();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Divider(),
         Text(
           'Feedback',
           style: textStyleBold(),
@@ -227,7 +259,7 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
                     initImage: trab.antes,
                     onImageUploaded: (fileName) {
                       trab.antes = fileName;
-                      // TODO ATUALIZAR REGISTRO
+                      salvar();
                     },
                     placeHolder: 'assets/images/perfil.jpg',
                   ),
@@ -244,7 +276,7 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
                     initImage: trab.depois,
                     onImageUploaded: (fileName) {
                       trab.depois = fileName;
-                      // TODO ATUALIZAR REGISTRO
+                      salvar();
                     },
                     placeHolder: 'assets/images/perfil.jpg',
                   ),
@@ -300,5 +332,55 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
 
   textStyleBold({double size = 18}) {
     return TextStyle(fontWeight: FontWeight.bold, fontSize: size);
+  }
+
+  salvar() async {
+    String url = '$awsurl/trabalho/save';
+    String json = jsonEncode(widget.trabalho.toJsonWeb());
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 15));
+    getResponse(response);
+  }
+
+  cancelar() async {
+    String url = '$awsurl/trabalho/delete';
+    String json = jsonEncode({'id': widget.trabalho.id});
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 15));
+    getResponse(response);
+    pop(context);
+  }
+
+  askTrabalho() {
+    AlertDialog alert = AlertDialog(
+      title: Text("Cancelar agendamento"),
+      content: Text(
+          "Tem certeza que deseja cancelar este agendamento? Este cancelamento não poderá ser restaurado."),
+      actions: [
+        FlatButton(
+          child: Text("Cancelar"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        FlatButton(
+          child: Text("Sim"),
+          onPressed: () {
+            cancelar();
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

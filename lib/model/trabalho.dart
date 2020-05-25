@@ -38,6 +38,9 @@ class Trabalho {
       this.finalizado,
       this.rating,
       this.feedback});
+  bool get isFinished =>
+      DateTime.now().millisecondsSinceEpoch >
+      trabTimestamp + (servico.tempo * 60 * 1000);
   String get timeFormatted => DateFormat('HH:mm')
       .format(DateTime.fromMillisecondsSinceEpoch(trabTimestamp));
   Trabalho.fromJson(Map<String, dynamic> json) {
@@ -70,6 +73,21 @@ class Trabalho {
     if (this.servico != null) {
       data['servico'] = this.servico.toJson();
     }
+    data['antes'] = this.antes;
+    data['depois'] = this.depois;
+    data['finalizado'] = this.finalizado;
+    data['rating'] = this.rating;
+    data['feedback'] = this.feedback;
+    return data;
+  }
+
+  Map<String, dynamic> toJsonWeb() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['timestamp'] = this.trabTimestamp;
+    data['usuario'] = usuario.email;
+    data['servico'] = servico.id;
+    data['barbeiro'] = barbeiro.id;
     data['antes'] = this.antes;
     data['depois'] = this.depois;
     data['finalizado'] = this.finalizado;

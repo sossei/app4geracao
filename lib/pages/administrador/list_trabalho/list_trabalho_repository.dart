@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:app4geracao/control/preferences/estabelecimento_pref.dart';
 import 'package:app4geracao/control/preferences/user_pref.dart';
+import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/barbeiro.dart';
 import 'package:app4geracao/model/estabelecimento.dart';
 import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/model/usuario.dart';
+import 'package:http/http.dart' as http;
 
 class ListTrabalhoRepository {
   Future<Usuario> getUsuario() async {
@@ -16,30 +20,25 @@ class ListTrabalhoRepository {
   }
 
   Future<List<Trabalho>> getListTrabalho(DateTime data) async {
-    int timeStampStart = data.millisecondsSinceEpoch;
-    int timeStampEnd = data.add(Duration(hours: 24)).millisecondsSinceEpoch;
-    await Future.delayed(Duration(seconds: 2));
-    return [];
-    return [
-      await _factryTeste(1590008400000),
-      await _factryTeste(1589836811615)
-    ];
+    DateTime init = DateTime(data.year, data.month, data.day, 1);
+    DateTime end = DateTime(data.year, data.month, data.day, 23);
+    return await listTrabalho(init, end);
   }
 
-  _factryTeste(int timeStamp) async {
-    Usuario usuario = await UsuarioPref().getUsuario();
-    Servico servico = Servico();
-    servico.descricao = 'Corte de cabelo';
-    servico.foto = '8fccd756-f38a-4b14-8774-e52ea56cd7eb.jpg';
-    servico.valor = 5000;
-    servico.tempo = 30;
-    Barbeiro barbeiro = Barbeiro();
-    barbeiro.foto = '077f846f-e610-442a-9a51-b7be688bb948 ';
-    barbeiro.nome = 'Rafael';
-    return Trabalho(
-        barbeiro: barbeiro,
-        servico: servico,
-        usuario: usuario,
-        trabTimestamp: timeStamp);
+  Future<List<Trabalho>> listTrabalho(
+      DateTime initDate, DateTime endDate) async {
+    int init = DateTime(initDate.year, initDate.month, initDate.day, 0)
+        .millisecondsSinceEpoch;
+    int end = DateTime(endDate.year, endDate.month, endDate.day, 24)
+        .millisecondsSinceEpoch;
+    String url = '$awsurl/trabalho/list';
+    String json = jsonEncode({'init': init, 'end': end});
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 15));
+    String body = getResponse(response);
+    Iterable parsedListJson = jsonDecode(body);
+    return List<Trabalho>.from(parsedListJson.map((i) => Trabalho.fromJson(i)));
   }
 }

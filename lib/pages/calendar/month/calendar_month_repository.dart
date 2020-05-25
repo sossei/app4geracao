@@ -24,7 +24,6 @@ class CalendarMonthRepository {
     List<Trabalho> trabalhos =
         List<Trabalho>.from(parsedListJson.map((i) => Trabalho.fromJson(i)));
     return await _prepareData(trabalhos, initDate, endDate);
-    // _animationController.forward();
   }
 
   Future<bool> get isAdmin async =>
@@ -40,36 +39,8 @@ class CalendarMonthRepository {
       else
         aux.putIfAbsent(date, () => [trab]);
     });
-    // if (!(await isAdmin)) {
-    //   for (int i = 1; i <= endDate.day; i++) {
-    //     List<Trabalho> trabalhos = [];
-    //     DateTime dateFilter = DateTime(initDate.year, initDate.month, i);
 
-    //     if (aux.containsKey(dateFilter)) {
-    //       trabalhos = aux[dateFilter];
-    //     }
-    //     _events.putIfAbsent(
-    //         dateFilter, () => _createArray(dateFilter, trabalhos));
-    //   }
-    // } else
     _events.addAll(aux);
     return _events;
-    // _selectedDay =
-    //     DateTime(_selectedDay.year, _selectedDay.month, _selectedDay.day);
-    // _selectedEvents = _events[_selectedDay] ?? [];
-    // setState(() {});
   }
-
-  // _createArray(DateTime date, List<Trabalho> list) {
-  //   int defaultSize = date.weekday == 6 ? 18 : 33;
-  //   int sizePreenchido = 0;
-  //   list.forEach((trab) {
-  //     sizePreenchido += (trab.servico.tempo / 20).round();
-  //   });
-  //   List<Trabalho> result = [];
-  //   for (int i = 0; i < defaultSize - sizePreenchido; i++) {
-  //     result.add(Trabalho());
-  //   }
-  //   return result;
-  // }
 }

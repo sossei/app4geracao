@@ -1,5 +1,5 @@
-import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/trabalho.dart';
+import 'package:app4geracao/pages/trabalho/trabalho_detalhes_page.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
@@ -171,8 +171,27 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                           ),
                           elevation: 4,
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.symmetric(vertical: 4),
                             child: ListTile(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (context) {
+                                      return Container(
+                                        child: TrabalhoDetahePage(
+                                          trabalho: trabalho,
+                                        ),
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20))),
+                                      );
+                                    });
+                              },
                               leading: ClipOval(
                                 child: Container(
                                   color: Theme.of(context).primaryColor,
@@ -207,10 +226,10 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                                     trabalho.timeFormatted,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 22),
+                                        fontSize: 14),
                                   ),
-                                  Text(trabalho.servico.tempoFormatted,
-                                      style: TextStyle(fontSize: 14)),
+                                  Text('Tempo: ${trabalho.servico.tempo} min',
+                                      style: TextStyle(fontSize: 12)),
                                 ],
                               ),
                             ),
