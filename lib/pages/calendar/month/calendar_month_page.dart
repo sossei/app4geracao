@@ -12,8 +12,9 @@ import 'package:table_calendar/table_calendar.dart';
 
 class CalendarMonthPage extends StatefulWidget {
   final Trabalho trabalho;
-
-  const CalendarMonthPage({Key key, this.trabalho}) : super(key: key);
+  final bool isAdmin;
+  const CalendarMonthPage({Key key, this.trabalho, this.isAdmin = false})
+      : super(key: key);
 
   @override
   _CalendarMonthPageState createState() => _CalendarMonthPageState();
@@ -30,7 +31,9 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
+    _controller.setAdmin(widget.isAdmin);
     super.initState();
+    _controller.animationController.forward();
   }
 
   @override
@@ -65,7 +68,7 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
         Expanded(
           child: Observer(builder: (_) {
             if (_controller.msgErro != null) return panelError();
-            return _controller.isAdmin
+            return widget.isAdmin
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
@@ -275,7 +278,7 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
         borderRadius: BorderRadius.circular(8),
       ),
       width: 100,
-      height: _controller.isAdmin ? 100 : 200,
+      height: widget.isAdmin ? 100 : 200,
       child: Text(
         '${date.day}',
         style: TextStyle().copyWith(fontSize: 16.0),
@@ -292,7 +295,7 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
         borderRadius: BorderRadius.circular(8),
       ),
       width: 100,
-      height: _controller.isAdmin ? 100 : 200,
+      height: widget.isAdmin ? 100 : 200,
       child: Text(
         '${date.day}',
         style: TextStyle(color: Colors.grey).copyWith(fontSize: 16.0),
@@ -402,9 +405,13 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
       onPressed: () {
         push(
             context,
-            CalendarDaypage(_controller.selectedDate, widget.trabalho,
-                _controller.selectedTrabalhos,
-                showData: _controller.isAdmin));
+            CalendarDaypage(
+              _controller.selectedDate,
+              widget.trabalho,
+              _controller.selectedTrabalhos,
+              showData: widget.isAdmin,
+              isTwo: widget.trabalho.servico.tempo == 40,
+            ));
       },
       color: Theme.of(context).accentColor,
       child: Container(
@@ -422,8 +429,8 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
 
   bool _enabledDayPredicate(DateTime date) {
     if (date.weekday == 7) return false;
-    if (_controller.isAdmin) return true;
-    if (!_controller.mapDates.containsKey(date)) return false;
+    if (widget.isAdmin) return true;
+    if (!_controller.mapDates.containsKey(date)) return true;
     List trabalhos = _controller.mapDates[date];
     return trabalhos != null && trabalhos.length == 33;
   }
@@ -442,19 +449,16 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
       _controller.setSelectedTrabalhos(trabalhos);
     else
       _controller.setSelectedTrabalhos([]);
-    if (!_controller.isAdmin) {
-      if (trabalhos.length == 0)
-        _showMessage('Não há horários vagos');
-      else {
-        push(
-            context,
-            CalendarDaypage(
-              _controller.selectedDate,
-              widget.trabalho,
-              _controller.selectedTrabalhos,
-              showData: _controller.isAdmin,
-            ));
-      }
+    if (!widget.isAdmin) {
+      push(
+          context,
+          CalendarDaypage(
+            _controller.selectedDate,
+            widget.trabalho,
+            _controller.selectedTrabalhos,
+            showData: widget.isAdmin,
+            isTwo: widget.trabalho.servico.tempo == 40,
+          ));
     }
   }
 

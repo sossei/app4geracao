@@ -48,7 +48,8 @@ abstract class _CalendarMonthControllerBase with Store {
   @action
   setMap(mapDates) {
     List<Trabalho> trabalhos = mapDates[selectedDate] ?? [];
-    setSelectedTrabalhos(trabalhos);
+    this.selectedTrabalhos = trabalhos;
+    // setSelectedTrabalhos(trabalhos);
     this.mapDates = mapDates;
     animationController.forward(from: 0.0);
   }
@@ -61,16 +62,15 @@ abstract class _CalendarMonthControllerBase with Store {
   AnimationController animationController;
 
   fetchData(DateTime initDate, DateTime endDate) async {
-    _setRequesting(true);
+    if (!isRequesting) _setRequesting(true);
     try {
-      setMap(await CalendarMonthRepository().listTrabalho(initDate, endDate));
+      Map map = await CalendarMonthRepository().listTrabalho(initDate, endDate);
+      setMap(map);
       _setRequesting(false);
-      bool admin = await CalendarMonthRepository().isAdmin;
-      setAdmin(admin);
       animationController.forward();
     } catch (e, s) {
       debugPrint('$e - $s');
-      setMsgErro(e.toString());
+      setMsgErro(e?.toString() ?? 'Sem conexão com servidor');
     }
   }
 }

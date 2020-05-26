@@ -211,16 +211,19 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
                       GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
+                              isScrollControlled: true,
                               context: context,
                               backgroundColor: Colors.transparent,
                               builder: (context) {
-                                Widget child = widget.showData
-                                    ? CliAddTrabPage()
-                                    : AdminAddTrabPage();
+                                widget.trabalho.trabTimestamp =
+                                    start.millisecondsSinceEpoch;
+                                Widget child =
+                                    CliAddTrabPage(trabalho: widget.trabalho);
                                 return Container(
                                   child: child,
                                   padding: EdgeInsets.all(8),
                                   decoration: BoxDecoration(
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20),
                                           topRight: Radius.circular(20))),
