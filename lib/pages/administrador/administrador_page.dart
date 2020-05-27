@@ -1,10 +1,10 @@
 import 'package:app4geracao/control/nav/nav.dart';
-import 'package:app4geracao/pages/administrador/barbeiros/list/list_barbeiro_page.dart';
-import 'package:app4geracao/pages/administrador/list_trabalho/list_trabalho_page.dart';
-import 'package:app4geracao/pages/administrador/servicos/list/list_servico_page.dart';
+import 'package:app4geracao/pages/barbeiros/list/list_barbeiro_page.dart';
 import 'package:app4geracao/pages/calendar/month/calendar_month_page.dart';
 
 import 'package:app4geracao/pages/perfil/perfil_page.dart';
+import 'package:app4geracao/pages/servicos/list/list_servico_page.dart';
+import 'package:app4geracao/pages/trabalho/list_trabalho/list_trabalho_page.dart';
 import 'package:flutter/material.dart';
 
 class AdministradorPage extends StatefulWidget {

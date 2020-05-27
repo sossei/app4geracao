@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app4geracao/pages/splashscreen/splashscreen_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     firebaseCloudMessaging_Listeners();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

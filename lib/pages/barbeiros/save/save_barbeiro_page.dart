@@ -1,7 +1,7 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/barbeiro.dart';
-import 'package:app4geracao/pages/administrador/barbeiros/save/save_barbeiro_controller.dart';
+import 'package:app4geracao/pages/barbeiros/save/save_barbeiro_controller.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:app4geracao/widgets/panel_uploadimage.dart';

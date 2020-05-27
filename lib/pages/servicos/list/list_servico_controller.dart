@@ -1,5 +1,5 @@
 import 'package:app4geracao/model/servico.dart';
-import 'package:app4geracao/pages/administrador/servicos/list/list_servico_repository.dart';
+import 'list_servico_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'list_servico_controller.g.dart';

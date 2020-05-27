@@ -346,7 +346,7 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
 
   cancelar() async {
     String url = '$awsurl/trabalho/delete';
-    String json = jsonEncode({'id': widget.trabalho.id});
+    String json = jsonEncode({'trabTimestamp': widget.trabalho.trabTimestamp});
     var response = await http
         .post(url,
             headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))

@@ -1,16 +1,16 @@
 import 'package:app4geracao/control/nav/nav.dart';
-import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/model/barbeiro.dart';
 import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/model/usuario.dart';
 import 'package:app4geracao/pages/calendar/month/calendar_month_page.dart';
-import 'package:app4geracao/pages/cliente/trabalho/add/add_trab_controller.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'add_trab_controller.dart';
 
 class AddTrabPage extends StatefulWidget {
   final Usuario usuario;
@@ -46,14 +46,18 @@ class _AddTrabPageState extends State<AddTrabPage> {
 
   Widget body() {
     if (_controller.msgErro != null) {
-      return PanelError(
-        msgErro: _controller.msgErro,
-        action: _controller.fetchData(),
+      return Center(
+        child: PanelError(
+          msgErro: _controller.msgErro,
+          action: _controller.fetchData(),
+        ),
       );
     }
     if (_controller.isRequesting)
-      return PanelRequesting(
-        descricao: 'Carregando...',
+      return Center(
+        child: PanelRequesting(
+          descricao: 'Carregando...',
+        ),
       );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,30 +80,31 @@ class _AddTrabPageState extends State<AddTrabPage> {
   }
 
   Widget carouselServico() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              'Selecione o serviço',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Text(
+            'Selecione o serviço',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          SizedBox(
-            height: 16,
-          ),
-          CarouselSlider.builder(
-            itemCount: _controller?.servicos?.length ?? 0,
-            itemBuilder: (context, index) {
-              Servico servico = _controller.servicos[index];
-              return Container(
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        CarouselSlider.builder(
+          itemCount: _controller?.servicos?.length ?? 0,
+          itemBuilder: (context, index) {
+            Servico servico = _controller.servicos[index];
+            double _opacityValue = index == _controller.indexServico ? 1 : 0.5;
+            return Opacity(
+              opacity: _opacityValue,
+              child: Container(
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Colors.black,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -115,66 +120,67 @@ class _AddTrabPageState extends State<AddTrabPage> {
                       subtitle: 'R\$ ${servico.valorFormatted}',
                       trailing: '${servico.tempo} min'),
                 ),
-              );
+              ),
+            );
+          },
+          options: CarouselOptions(
+            autoPlay: false,
+            onPageChanged: (index, reason) {
+              print(_controller.servicos[index].descricao);
+              _controller.setServico(index);
             },
-            options: CarouselOptions(
-              autoPlay: false,
-              onPageChanged: (index, reason) {
-                print(_controller.servicos[index].descricao);
-                _controller.setServico(index);
-              },
-              enableInfiniteScroll: false,
-              aspectRatio: 2.5,
-              initialPage: 0,
-              enlargeCenterPage: true,
-            ),
+            enableInfiniteScroll: false,
+            aspectRatio: 2.5,
+            initialPage: 0,
+            enlargeCenterPage: true,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _controller.servicos.map((url) {
-              int index = _controller.servicos.indexOf(url);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _controller.indexServico == index
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _controller.servicos.map((url) {
+            int index = _controller.servicos.indexOf(url);
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _controller.indexServico == index
+                    ? Color.fromRGBO(0, 0, 0, 0.9)
+                    : Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 
   Widget caoruselBarbeiro() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Text(
-              'Selecione seu barbeiro preferido',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Text(
+            'Selecione seu barbeiro preferido',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          SizedBox(
-            height: 16,
-          ),
-          CarouselSlider.builder(
-            itemCount: _controller?.barbeiros?.length ?? 0,
-            itemBuilder: (context, index) {
-              Barbeiro barbeiro = _controller.barbeiros[index];
-              return Container(
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        CarouselSlider.builder(
+          itemCount: _controller?.barbeiros?.length ?? 0,
+          itemBuilder: (context, index) {
+            Barbeiro barbeiro = _controller.barbeiros[index];
+            double _opacityValue = index == _controller.indexBarbeiro ? 1 : 0.5;
+            return Opacity(
+              opacity: _opacityValue,
+              child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  color: Colors.black,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -224,38 +230,38 @@ class _AddTrabPageState extends State<AddTrabPage> {
                     ],
                   ),
                 ),
-              );
+              ),
+            );
+          },
+          options: CarouselOptions(
+            autoPlay: false,
+            onPageChanged: (index, reason) {
+              print(_controller.barbeiros[index].nome);
+              _controller.setBarbeiro(index);
             },
-            options: CarouselOptions(
-              autoPlay: false,
-              onPageChanged: (index, reason) {
-                print(_controller.barbeiros[index].nome);
-                _controller.setBarbeiro(index);
-              },
-              enableInfiniteScroll: false,
-              aspectRatio: 1,
-              enlargeCenterPage: true,
-            ),
+            enableInfiniteScroll: false,
+            aspectRatio: 1,
+            enlargeCenterPage: true,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _controller.barbeiros.map((url) {
-              int index = _controller.barbeiros.indexOf(url);
-              return Container(
-                width: 8.0,
-                height: 8.0,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _controller.indexBarbeiro == index
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _controller.barbeiros.map((url) {
+            int index = _controller.barbeiros.indexOf(url);
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _controller.indexBarbeiro == index
+                    ? Color.fromRGBO(0, 0, 0, 0.9)
+                    : Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 

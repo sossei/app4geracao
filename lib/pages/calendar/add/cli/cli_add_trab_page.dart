@@ -63,6 +63,7 @@ class CliAddTrabPageState extends State<CliAddTrabPage> {
   }
 
   void _showDialogError() {
+    Navigator.pop(context);
     // flutter defined function
     showDialog(
       context: context,
@@ -258,13 +259,20 @@ class CliAddTrabPageState extends State<CliAddTrabPage> {
   }
 
   salvar() async {
-    String url = '$awsurl/trabalho/save';
-    String json = jsonEncode(widget.trabalho.toJsonWeb());
-    var response = await http
-        .post(url,
-            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
-        .timeout(Duration(seconds: 15));
-    getResponse(response);
-    returnSplash(context);
+    try {
+      String url = '$awsurl/trabalho/save';
+      String json = jsonEncode(widget.trabalho.toJsonWeb());
+      var response = await http
+          .post(url,
+              headers: awskey,
+              body: json,
+              encoding: Encoding.getByName('utf-8'))
+          .timeout(Duration(seconds: 15));
+      getResponse(response);
+      returnSplash(context);
+    } catch (e, s) {
+      debugPrint('$e - $s');
+      _showDialogError();
+    }
   }
 }

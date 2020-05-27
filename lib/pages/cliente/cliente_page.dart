@@ -1,10 +1,8 @@
 import 'package:app4geracao/control/nav/nav.dart';
-import 'package:app4geracao/pages/administrador/barbeiros/list/list_barbeiro_page.dart';
-import 'package:app4geracao/pages/administrador/list_trabalho/list_trabalho_page.dart';
-import 'package:app4geracao/pages/administrador/servicos/list/list_servico_page.dart';
-import 'package:app4geracao/pages/calendar/month/calendar_month_page.dart';
 
 import 'package:app4geracao/pages/perfil/perfil_page.dart';
+import 'package:app4geracao/pages/trabalho/atual/trabalho_page.dart';
+import 'package:app4geracao/pages/trabalho/historico/historico_trab_page.dart';
 import 'package:flutter/material.dart';
 
 class ClientePage extends StatefulWidget {
@@ -19,12 +17,6 @@ class _ClientePageState extends State<ClientePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          child: Icon(Icons.account_circle),
-          onTap: () {
-            push(context, PerfilPage());
-          },
-        ),
         title: Text('Menu'),
       ),
       body: _body(),
@@ -45,10 +37,7 @@ class _ClientePageState extends State<ClientePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today), title: Text("Agenda")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.room_service), title: Text("Serviços")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.perm_contact_calendar),
-              title: Text("Barbeiros")),
+              icon: Icon(Icons.person), title: Text("Perfil")),
         ],
       ),
     );
@@ -63,16 +52,13 @@ class _ClientePageState extends State<ClientePage> {
   _body() {
     switch (_selectedTabIndex) {
       case 0:
-        return ListTrabalhoPage();
+        return TrabalhoPage();
         break;
       case 1:
-        return CalendarMonthPage();
+        return HistoricoTrabPage();
         break;
       case 2:
-        return ListServicoPage();
-        break;
-      case 3:
-        return ListBarbeiroPage();
+        return PerfilPage();
         break;
       default:
         return Container();

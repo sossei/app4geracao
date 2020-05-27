@@ -2,7 +2,7 @@ import 'package:app4geracao/model/barbeiro.dart';
 import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/model/usuario.dart';
-import 'package:app4geracao/pages/cliente/trabalho/add/add_trab_repository.dart';
+import 'add_trab_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'add_trab_controller.g.dart';

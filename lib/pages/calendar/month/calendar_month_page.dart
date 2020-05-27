@@ -430,9 +430,10 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
   bool _enabledDayPredicate(DateTime date) {
     if (date.weekday == 7) return false;
     if (widget.isAdmin) return true;
-    if (!_controller.mapDates.containsKey(date)) return true;
-    List trabalhos = _controller.mapDates[date];
-    return trabalhos != null && trabalhos.length == 33;
+    DateTime hoje = DateTime.now();
+    hoje = DateTime(hoje.year, hoje.month, hoje.day);
+    if (date.isBefore(hoje)) return false;
+    return true;
   }
 
   _showMessage(String msg) {

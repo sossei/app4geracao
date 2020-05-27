@@ -16,26 +16,27 @@ import 'servico.dart';
 import 'usuario.dart';
 
 class Trabalho {
-  String id;
   int trabTimestamp;
   Usuario usuario;
   Barbeiro barbeiro;
   Servico servico;
   String antes;
   String depois;
-  bool finalizado;
   int rating;
   String feedback;
   DateTime get date => DateTime.fromMillisecondsSinceEpoch(trabTimestamp);
+  String get dateFormatted =>
+      ' ${DateFormat.yMEd('pt').format(date)} as ${DateFormat.Hm().format(date)}';
+  bool get finalizado => DateTime.fromMillisecondsSinceEpoch(
+          trabTimestamp + (servico.tempo * 60 * 100).round())
+      .isBefore(DateTime.now());
   Trabalho(
-      {this.id,
-      this.trabTimestamp,
+      {this.trabTimestamp,
       this.usuario,
       this.barbeiro,
       this.servico,
       this.antes,
       this.depois,
-      this.finalizado,
       this.rating,
       this.feedback});
   bool get isFinished =>
@@ -44,7 +45,6 @@ class Trabalho {
   String get timeFormatted => DateFormat('HH:mm')
       .format(DateTime.fromMillisecondsSinceEpoch(trabTimestamp));
   Trabalho.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     trabTimestamp = json['trabTimestamp'];
     usuario =
         json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
@@ -55,14 +55,12 @@ class Trabalho {
         json['servico'] != null ? new Servico.fromJson(json['servico']) : null;
     antes = json['antes'];
     depois = json['depois'];
-    finalizado = json['finalizado'] ?? false;
     rating = json['rating'];
     feedback = json['feedback'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['trabTimestamp'] = this.trabTimestamp;
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
@@ -83,7 +81,6 @@ class Trabalho {
 
   Map<String, dynamic> toJsonWeb() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['trabTimestamp'] = this.trabTimestamp;
     data['usuario'] = usuario.email;
     data['servico'] = servico.id;

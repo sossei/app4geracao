@@ -1,8 +1,7 @@
 import 'package:app4geracao/control/nav/nav.dart';
-import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/servico.dart';
-import 'package:app4geracao/pages/administrador/servicos/list/list_servico_controller.dart';
-import 'package:app4geracao/pages/administrador/servicos/save/save_servico_page.dart';
+import 'package:app4geracao/pages/servicos/save/save_servico_page.dart';
+import 'list_servico_controller.dart';
 import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_empty.dart';
 import 'package:app4geracao/widgets/panel_error.dart';

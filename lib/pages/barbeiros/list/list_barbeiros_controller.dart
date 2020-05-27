@@ -1,5 +1,5 @@
 import 'package:app4geracao/model/barbeiro.dart';
-import 'package:app4geracao/pages/administrador/barbeiros/list/list_barbeiros_repository.dart';
+import 'list_barbeiros_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'list_barbeiros_controller.g.dart';
