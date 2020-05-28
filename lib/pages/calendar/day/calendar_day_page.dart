@@ -1,8 +1,9 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/model/trabalho.dart';
-import 'package:app4geracao/pages/calendar/add/admin/admin_add_trab_page.dart';
 import 'package:app4geracao/pages/calendar/add/cli/cli_add_trab_page.dart';
 import 'package:app4geracao/pages/trabalho/trabalho_detalhes_page.dart';
+import 'package:app4geracao/widgets/button_4geracao.dart';
+import 'package:app4geracao/widgets/panel_uploadimage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -210,25 +211,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
                       Expanded(child: Text('Das $init até $finish')),
                       GestureDetector(
                         onTap: () {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              backgroundColor: Colors.transparent,
-                              builder: (context) {
-                                widget.trabalho.trabTimestamp =
-                                    start.millisecondsSinceEpoch;
-                                Widget child =
-                                    CliAddTrabPage(trabalho: widget.trabalho);
-                                return Container(
-                                  child: child,
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20))),
-                                );
-                              });
+                          fotoAntes();
                         },
                         child: Icon(
                           Icons.done,
@@ -241,6 +224,96 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
         )
       ],
     );
+  }
+
+  void fotoAntes() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (_) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              color: Colors.white,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Icon(
+                    Icons.person_outline,
+                    color: Colors.grey,
+                    size: 56,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Tire uma foto antes do ${widget.trabalho.servico.descricao} para comparar depois! Não é obrigatório, você pode pular está parte',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    width: 160,
+                    child: UploadImageWidget(
+                      onImageUploaded: (fileName) {
+                        widget.trabalho.antes = fileName;
+                        Navigator.pop(context);
+                        confirmacao();
+                      },
+                      placeHolder: 'assets/images/perfil.jpg',
+                      showExplore: false,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Button4Geracao(
+                    title: 'Pular',
+                    action: () {
+                      Navigator.pop(context);
+                      confirmacao();
+                    },
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  confirmacao() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          widget.trabalho.trabTimestamp = start.millisecondsSinceEpoch;
+          Widget child = CliAddTrabPage(trabalho: widget.trabalho);
+          return Container(
+            child: child,
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
+          );
+        });
   }
 
   _styleAgendamento({bool first = true, bool isTwo = false, Widget child}) {

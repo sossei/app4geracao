@@ -291,7 +291,7 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
 
   ratingBar(trab) {
     return RatingBar(
-      initialRating: trab.rating ?? 0,
+      initialRating: double.parse(trab.rating.toString()) ?? 0,
       itemCount: 5,
       allowHalfRating: false,
       ignoreGestures: true,
@@ -299,28 +299,28 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
         switch (index) {
           case 0:
             return Icon(
-              Icons.sentiment_very_dissatisfied,
-              color: Colors.red,
+              Icons.star,
+              color: Colors.yellow,
             );
           case 1:
             return Icon(
-              Icons.sentiment_dissatisfied,
-              color: Colors.redAccent,
+              Icons.star,
+              color: Colors.yellow,
             );
           case 2:
             return Icon(
-              Icons.sentiment_neutral,
-              color: Colors.amber,
+              Icons.star,
+              color: Colors.yellow,
             );
           case 3:
             return Icon(
-              Icons.sentiment_satisfied,
-              color: Colors.lightGreen,
+              Icons.star,
+              color: Colors.yellow,
             );
           case 4:
             return Icon(
-              Icons.sentiment_very_satisfied,
-              color: Colors.green,
+              Icons.star,
+              color: Colors.yellow,
             );
         }
       },

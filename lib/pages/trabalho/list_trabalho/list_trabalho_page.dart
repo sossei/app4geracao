@@ -243,7 +243,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                   ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Button4Geracao(
                 title: 'Adicionar',
                 action: () {

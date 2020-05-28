@@ -13,8 +13,10 @@ class UploadImageWidget extends StatefulWidget {
   final String initImage;
   final String placeHolder;
   final double size;
+  final bool showExplore;
   const UploadImageWidget(
       {Key key,
+      this.showExplore = true,
       this.onImageUploaded,
       this.initImage,
       this.placeHolder = 'assets/images/perfil.jpg',
@@ -49,27 +51,29 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
           child: _buildPhoto(),
         ),
         _buildRequesting(),
-        Positioned(
-          bottom: 5,
-          left: 5,
-          child: InkWell(
-            onTap: () => _onAddPhotoClicked(context),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(
-                    Radius.elliptical(widget.size, widget.size)),
-                color: Theme.of(context).primaryColor.withOpacity(0.8),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Icon(
-                  Icons.photo_library,
-                  color: kLightGray,
+        widget.showExplore
+            ? Positioned(
+                bottom: 5,
+                left: 5,
+                child: InkWell(
+                  onTap: () => _onAddPhotoClicked(context),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: new BorderRadius.all(
+                          Radius.elliptical(widget.size, widget.size)),
+                      color: Theme.of(context).primaryColor.withOpacity(0.8),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(
+                        Icons.photo_library,
+                        color: kLightGray,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
+              )
+            : Container(),
         Positioned(
           bottom: 5,
           right: 5,

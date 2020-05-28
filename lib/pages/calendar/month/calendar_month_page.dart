@@ -106,15 +106,16 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
       locale: 'pt',
       calendarController: calendarController,
       events: _controller.mapDates,
-      initialCalendarFormat: CalendarFormat.month,
+      initialCalendarFormat:
+          widget.isAdmin ? CalendarFormat.week : CalendarFormat.month,
       initialSelectedDay: DateTime.now(),
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.sunday,
       availableGestures: AvailableGestures.all,
       enabledDayPredicate: _enabledDayPredicate,
       availableCalendarFormats: const {
-        CalendarFormat.month: 'Mês',
-        CalendarFormat.twoWeeks: '2 Semanas',
+        CalendarFormat.month: 'Semanal',
+        CalendarFormat.week: 'Mensal',
       },
       calendarStyle: CalendarStyle(
         outsideDaysVisible: true,
@@ -417,7 +418,7 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 24),
         child: Text(
-          'Detalhes ou adicionar',
+          'Detalhes',
           style: TextStyle(
             fontSize: 24,
           ),

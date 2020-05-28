@@ -66,7 +66,9 @@ class _AdministradorPageState extends State<AdministradorPage> {
         return ListTrabalhoPage();
         break;
       case 1:
-        return CalendarMonthPage();
+        return CalendarMonthPage(
+          isAdmin: true,
+        );
         break;
       case 2:
         return ListServicoPage();
