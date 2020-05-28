@@ -21,6 +21,19 @@ class CadastroRepository {
     await UsuarioPref().saveUsuario(usuario);
   }
 
+  save(Usuario usuario) async {
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    String url = '$awsurl/cliente/save';
+    usuario.token = await _firebaseMessaging.getToken();
+    String json = jsonEncode(usuario.toJson());
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 10));
+    String jsonResponse = getResponse(response);
+    usuario.senha = Usuario.fromJson(jsonDecode(jsonResponse)).senha;
+  }
+
   editar(Usuario usuario) async {
     String url = '$awsurl/usuario/edit';
     String json = jsonEncode(usuario.toJson());

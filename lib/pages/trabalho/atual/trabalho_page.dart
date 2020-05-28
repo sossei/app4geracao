@@ -323,6 +323,17 @@ class _TrabalhoPageState extends State<TrabalhoPage> {
                 ),
                 Text('Deixe-nos seu comentário'),
                 TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Digite seu comentário',
+                    labelStyle: TextStyle(color: Color(0xFF261610)),
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF402719),
+                      ),
+                    ),
+                    labelText: 'Comentário',
+                  ),
                   textInputAction: TextInputAction.done,
                   textCapitalization: TextCapitalization.sentences,
                   maxLines: null,

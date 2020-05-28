@@ -2,9 +2,9 @@ import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/model/usuario.dart';
 import 'package:app4geracao/pages/administrador/administrador_page.dart';
-import 'package:app4geracao/pages/cliente/cliente_page.dart';
 
 import 'package:app4geracao/pages/intro/intro_page.dart';
+import 'package:app4geracao/pages/menu_cliente/cliente_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {

@@ -1,4 +1,7 @@
+import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/model/trabalho.dart';
+import 'package:app4geracao/pages/cliente/list_cliente_page.dart';
+import 'package:app4geracao/pages/trabalho/add/add_trab_page.dart';
 import 'package:app4geracao/pages/trabalho/trabalho_detalhes_page.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
@@ -95,7 +98,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
           ),
           SizedBox(height: 24),
           Button4Geracao(
-              title: 'Tentar novamente',
+              title: 'Atualizar',
               action: () {
                 _controller.fecthData();
               }),
@@ -125,6 +128,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
   _bodyPanel() {
     return Observer(builder: (_) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(24.0),
@@ -237,7 +241,15 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                     },
                     itemCount: _controller.trabalhos.length,
                   ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Button4Geracao(
+                title: 'Adicionar',
+                action: () {
+                  push(context, ListClientePage());
+                }),
+          ),
         ],
       );
     });

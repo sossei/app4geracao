@@ -1,5 +1,7 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/model/servico.dart';
+import 'package:app4geracao/model/trabalho.dart';
+import 'package:app4geracao/pages/barbeiros/list/list_barbeiro_page.dart';
 import 'package:app4geracao/pages/servicos/save/save_servico_page.dart';
 import 'list_servico_controller.dart';
 import 'package:app4geracao/widgets/image_oval.dart';
@@ -10,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ListServicoPage extends StatefulWidget {
+  final Trabalho trabalho;
+
+  const ListServicoPage({Key key, this.trabalho}) : super(key: key);
   @override
   _ListServicoPageState createState() => _ListServicoPageState();
 }
@@ -42,12 +47,14 @@ class _ListServicoPageState extends State<ListServicoPage>
     return Scaffold(
       appBar: AppBar(title: Text('Serviços')),
       body: buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          push(context, SaveServicoPage());
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: widget.trabalho != null
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                push(context, SaveServicoPage());
+              },
+              child: Icon(Icons.add),
+            ),
     );
   }
 
@@ -81,35 +88,54 @@ class _ListServicoPageState extends State<ListServicoPage>
   }
 
   _body() {
-    return ListView.builder(
-      itemBuilder: (_, pos) {
-        Servico servico = _controller.servicos[pos];
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              leading: OvalImage(
-                  networkurl: servico.urlFoto75,
-                  placeholder: 'assets/images/default_servico.png',
-                  size: 48),
-              title: Text(servico.descricao),
-              subtitle: Text('Tempo: ${servico.tempoFormatted}'),
-              trailing: Text('R\$ ${servico.valor / 100}'),
+    return RefreshIndicator(
+      onRefresh: () => _controller.fetchData(),
+      child: ListView.builder(
+        itemBuilder: (_, pos) {
+          Servico servico = _controller.servicos[pos];
+          return GestureDetector(
+            child: Card(
+              child: ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/default_servico.png',
+                    image: servico.urlFoto75,
+                    fit: BoxFit.fitWidth,
+                    imageErrorBuilder: (context, obj, _) {
+                      return Image.asset('assets/images/default_servico.png');
+                    },
+                  ),
+                ),
+                title: Text(servico.descricao),
+                subtitle: Text('Tempo: ${servico.tempoFormatted}'),
+                trailing: Text('R\$ ${servico.valor / 100}'),
+              ),
             ),
-          ),
-          onTap: () {
-            push(
-                context,
-                SaveServicoPage(
-                  servico: servico,
-                ));
-          },
-          onLongPress: () {
-            askDelete(servico);
-          },
-        );
-      },
-      itemCount: _controller.servicos.length,
-      padding: EdgeInsets.all(8),
+            onTap: () {
+              if (widget.trabalho == null)
+                push(
+                    context,
+                    SaveServicoPage(
+                      servico: servico,
+                    ));
+              else {
+                widget.trabalho.servico = servico;
+                push(
+                    context,
+                    ListBarbeiroPage(
+                      trabalho: widget.trabalho,
+                    ));
+              }
+            },
+            onLongPress: () {
+              if (widget.trabalho == null) askDelete(servico);
+            },
+          );
+        },
+        itemCount: _controller.servicos.length,
+        padding: EdgeInsets.all(8),
+      ),
     );
   }
 

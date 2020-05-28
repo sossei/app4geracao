@@ -1,4 +1,5 @@
 import 'package:app4geracao/control/nav/nav.dart';
+import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/pages/cadastro/cadastro_controller.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
@@ -433,8 +434,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 Row(
                   children: <Widget>[
                     RaisedButton(
-                      onPressed: () {
-                        returnSplash(context);
+                      onPressed: () async {
+                        var usu = await UsuarioPref().getUsuario();
+                        if (usu != null && usu.estabelecimento != null)
+                          Navigator.pop(context);
+                        else
+                          returnSplash(context);
                       },
                       color: Theme.of(context).accentColor,
                       child: Container(
@@ -454,9 +459,13 @@ class _CadastroPageState extends State<CadastroPage> {
                     Expanded(
                       child: RaisedButton(
                         onPressed: () {
-                          _controller
-                              .editar()
-                              .then((value) => returnSplash(context));
+                          _controller.editar().then((value) async {
+                            var usu = await UsuarioPref().getUsuario();
+                            if (usu != null && usu.estabelecimento != null)
+                              Navigator.pop(context);
+                            else
+                              returnSplash(context);
+                          });
                         },
                         color: Theme.of(context).accentColor,
                         child: Container(

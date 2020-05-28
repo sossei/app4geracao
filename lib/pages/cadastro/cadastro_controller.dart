@@ -55,7 +55,11 @@ abstract class _CadastroControllerBase with Store {
         _setRequesting(true);
         endereco = Endereco();
         usuario.endereco = endereco;
-        await _repository.cadastro(usuario);
+        var usu = await UsuarioPref().getUsuario();
+        if (usu != null && usu.estabelecimento != null) {
+          await _repository.save(usuario);
+        } else
+          await _repository.cadastro(usuario);
 
         _setRequesting(false);
         setIsEndereco(true);

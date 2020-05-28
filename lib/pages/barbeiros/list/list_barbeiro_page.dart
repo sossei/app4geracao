@@ -1,7 +1,9 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/model/barbeiro.dart';
+import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/pages/barbeiros/save/save_barbeiro_page.dart';
+import 'package:app4geracao/pages/calendar/month/calendar_month_page.dart';
 
 import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_empty.dart';
@@ -13,6 +15,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'list_barbeiros_controller.dart';
 
 class ListBarbeiroPage extends StatefulWidget {
+  final Trabalho trabalho;
+
+  const ListBarbeiroPage({Key key, this.trabalho}) : super(key: key);
   @override
   _ListBarbeiroPageState createState() => _ListBarbeiroPageState();
 }
@@ -45,12 +50,14 @@ class _ListBarbeiroPageState extends State<ListBarbeiroPage>
     return Scaffold(
       appBar: AppBar(title: Text('Barbeiros')),
       body: buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          push(context, SaveBarbeiroPage());
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: widget.trabalho != null
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                push(context, SaveBarbeiroPage());
+              },
+              child: Icon(Icons.add),
+            ),
     );
   }
 
@@ -84,78 +91,91 @@ class _ListBarbeiroPageState extends State<ListBarbeiroPage>
   }
 
   _body() {
-    return ListView.builder(
-      itemBuilder: (_, pos) {
-        Barbeiro barbeiro = _controller.barbeiros[pos];
-        return GestureDetector(
-          child: Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ListTile(
-                  leading: OvalImage(
-                      networkurl: barbeiro.urlFoto75,
-                      placeholder: 'assets/images/perfil.jpg',
-                      size: 48),
-                  title: Text(
-                    barbeiro.nome,
-                    style: Theme.of(context).textTheme.headline6,
+    return RefreshIndicator(
+      onRefresh: () => _controller.fetchData(),
+      child: ListView.builder(
+        itemBuilder: (_, pos) {
+          Barbeiro barbeiro = _controller.barbeiros[pos];
+          return GestureDetector(
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/perfil.jpg',
+                        image: barbeiro.urlFoto75,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (context, obj, _) {
+                          return Image.asset('assets/images/perfil.jpg');
+                        },
+                      ),
+                    ),
+                    title: Text(
+                      barbeiro.nome,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Trabalhos',
-                    style: Theme.of(context).textTheme.headline6,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Trabalhos',
+                    ),
                   ),
-                ),
-                Container(
-                  height: 100,
-                  child: ListView.builder(
-                    itemBuilder: (_, pos) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25.0),
-                            topRight: Radius.circular(25.0),
-                            bottomRight: Radius.circular(25.0),
-                          ),
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            heightFactor: 0.5,
-                            child: Image.network(
-                              awss3 + 't75_' + barbeiro.ultimostrabalhos[pos],
-                              errorBuilder: (context, obj, _) {
-                                return Image.asset(
-                                    'assets/images/default_servico.png');
-                              },
+                  Container(
+                    height: 100,
+                    child: ListView.builder(
+                      itemBuilder: (_, pos) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.0),
+                              topRight: Radius.circular(25.0),
+                              bottomRight: Radius.circular(25.0),
+                            ),
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              heightFactor: 0.5,
+                              child: Image.network(
+                                awss3 + 't75_' + barbeiro.ultimostrabalhos[pos],
+                                errorBuilder: (context, obj, _) {
+                                  return Image.asset(
+                                      'assets/images/default_servico.png');
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemCount: barbeiro.ultimostrabalhos.length,
+                        );
+                      },
+                      scrollDirection: Axis.horizontal,
+                      itemCount: barbeiro.ultimostrabalhos.length,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          onTap: () {
-            push(
-                context,
-                SaveBarbeiroPage(
-                  barbeiro: barbeiro,
-                ));
-          },
-          onLongPress: () {
-            askDelete(barbeiro);
-          },
-        );
-      },
-      itemCount: _controller.barbeiros.length,
-      padding: EdgeInsets.all(8),
+            onTap: () {
+              if (widget.trabalho != null) widget.trabalho.barbeiro = barbeiro;
+              push(
+                  context,
+                  widget.trabalho != null
+                      ? CalendarMonthPage(
+                          trabalho: widget.trabalho,
+                        )
+                      : SaveBarbeiroPage(
+                          barbeiro: barbeiro,
+                        ));
+            },
+            onLongPress: () {
+              if (widget.trabalho == null) askDelete(barbeiro);
+            },
+          );
+        },
+        itemCount: _controller.barbeiros.length,
+        padding: EdgeInsets.all(8),
+      ),
     );
   }
 

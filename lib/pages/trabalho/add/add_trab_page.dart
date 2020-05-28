@@ -4,6 +4,7 @@ import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/model/usuario.dart';
 import 'package:app4geracao/pages/calendar/month/calendar_month_page.dart';
+import 'package:app4geracao/pages/servicos/list/list_servico_page.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -37,7 +38,20 @@ class _AddTrabPageState extends State<AddTrabPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Novo agendamento')),
+      appBar: AppBar(
+        title: Text('Novo agendamento'),
+        actions: <Widget>[
+          InkWell(
+              onTap: () {
+                pushReplacment(
+                    context, ListServicoPage(trabalho: _controller.trabalho));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(Icons.list),
+              ))
+        ],
+      ),
       body: Observer(builder: (_) {
         return body();
       }),
