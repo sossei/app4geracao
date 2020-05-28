@@ -1,5 +1,6 @@
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/pages/trabalho/historico/historico_trab_controller.dart';
+import 'package:app4geracao/widgets/panel_empty.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +70,23 @@ class _HistoricoTrabPageState extends State<HistoricoTrabPage>
   Widget error() {
     return Center(
         child: PanelError(
+      withCard: false,
       msgErro: _controller.msgErro,
       action: () => _controller.fecthData(),
     ));
   }
 
   Widget main() {
+    if (_controller.trabalhos.isEmpty)
+      return Center(
+          child: PanelEmpty(
+        withCard: false,
+        action: () {
+          _controller.fecthData();
+        },
+        descricao: 'OPs parece que você ainda não fez nenhuma agendamento',
+        descAction: 'Atualizar',
+      ));
     return RefreshIndicator(
         child: GroupedListView<Trabalho, String>(
           elements: _controller.trabalhos,
