@@ -1,6 +1,10 @@
 PODS:
   - camera (0.0.1):
     - Flutter
+  - device_calendar (0.0.1):
+    - Flutter
+  - Firebase/Analytics (6.25.0):
+    - Firebase/Core
   - Firebase/Core (6.25.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.5.1)
@@ -124,6 +128,8 @@ PODS:
 
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
+  - device_calendar (from `.symlinks/plugins/device_calendar/ios`)
+  - Firebase/Analytics
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
@@ -164,6 +170,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   camera:
     :path: ".symlinks/plugins/camera/ios"
+  device_calendar:
+    :path: ".symlinks/plugins/device_calendar/ios"
   firebase_messaging:
     :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
@@ -201,6 +209,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
+  device_calendar: 23b28a5f1ab3bf77e34542fb1167e1b8b29a98f5
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   firebase_messaging: 21344b3b3a7d9d325d63a70e3750c0c798fe1e03
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -235,6 +244,6 @@ SPEC CHECKSUMS:
   video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
   wakelock: 0d4a70faf8950410735e3f61fb15d517c8a6efc4
 
-PODFILE CHECKSUM: 083258d7f5e80b42ea9bfee905fe93049bc04c64
+PODFILE CHECKSUM: 9a7cbfa1df12ca48d529f0ee9f31f2ce4dc954ad
 
 COCOAPODS: 1.8.4
