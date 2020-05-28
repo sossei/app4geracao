@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class TrabalhoPage extends StatefulWidget {
   @override
@@ -155,7 +156,7 @@ class _TrabalhoPageState extends State<TrabalhoPage>
             ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(boxShadow: [
                   BoxShadow(blurRadius: 4, color: Colors.black.withOpacity(0.5))
                 ]),
@@ -188,7 +189,7 @@ class _TrabalhoPageState extends State<TrabalhoPage>
             ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(boxShadow: [
                   BoxShadow(blurRadius: 4, color: Colors.black.withOpacity(0.5))
                 ]),
@@ -219,7 +220,7 @@ class _TrabalhoPageState extends State<TrabalhoPage>
           ),
         ),
         Container(
-          height: 80,
+          height: 60,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             border: Border.all(color: Theme.of(context).primaryColor),
@@ -243,11 +244,29 @@ class _TrabalhoPageState extends State<TrabalhoPage>
           ),
         ),
         Spacer(),
+        RaisedButton(
+          onPressed: () {
+            MapsLauncher.launchQuery(
+                'R. Washington Osório de Oliveira, 703 - Vila Pedreiro, Piraju - SP, 18800-000');
+          },
+          color: Theme.of(context).accentColor,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              'Caminho',
+              style: TextStyle(
+                fontSize: 24,
+              ),
+            ),
+          ),
+          textColor: Color(0xFFFFFFFF),
+        )
       ],
     );
   }
 
   Widget trabalhoFinalizado() {
+    _controller.trabalho.rating = 5;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
