@@ -411,7 +411,9 @@ class _CalendarMonthPageState extends State<CalendarMonthPage>
               widget.trabalho,
               _controller.selectedTrabalhos,
               showData: widget.isAdmin,
-              isTwo: widget.trabalho.servico.tempo == 40,
+              isTwo: widget.trabalho == null
+                  ? false
+                  : widget.trabalho.servico.tempo == 40,
             ));
       },
       color: Theme.of(context).accentColor,

@@ -144,13 +144,17 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
   }
 
   _styleSelected({int index, Widget child}) {
+    Color colorBackground = Theme.of(context).primaryColor;
     return Stack(
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              color: Theme.of(context).primaryColor.withOpacity(0.3),
+              decoration: BoxDecoration(
+                  border: Border(
+                      left: BorderSide(color: colorBackground, width: 6)),
+                  color: colorBackground.withOpacity(0.5)),
               child: child,
             ),
           ],
@@ -174,14 +178,14 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
             child: selectedIndex == index
                 ? Row(
                     children: <Widget>[
-                      Expanded(child: Text('Das $init até $finish')),
+                      Expanded(
+                          child: Text('Das $init até $finish',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
                       GestureDetector(
                         onTap: () {
                           fotoAntes();
                         },
-                        child: Icon(
-                          FontAwesome.check,
-                        ),
+                        child: Icon(FontAwesome.check),
                       ),
                     ],
                   )
@@ -283,7 +287,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
   }
 
   _styleAgendamento({bool first = true, bool isTwo = false, Widget child}) {
-    var colorBackground =
+    Color colorBackground =
         widget.showData ? pallete[indexPallete] : Colors.grey[700];
 
     return Column(
@@ -291,7 +295,10 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: first ? 4 : 0),
-          color: colorBackground,
+          decoration: BoxDecoration(
+              border:
+                  Border(left: BorderSide(color: colorBackground, width: 6)),
+              color: colorBackground.withOpacity(0.5)),
           child: child,
         ),
       ],
@@ -343,7 +350,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
   _itemInvalid() {
     return Container(
       height: tamanhoItem,
-      color: Colors.grey.withOpacity(0.8),
+      color: Colors.grey.withOpacity(0.5),
     );
   }
 

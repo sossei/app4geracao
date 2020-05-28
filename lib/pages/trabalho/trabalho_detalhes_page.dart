@@ -81,25 +81,23 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Cliente',
-          style: textStyleBold(),
+        ListTile(
+          leading: Icon(FontAwesome.user),
+          title: Text(
+            'Cliente',
+            style: textStyleBold(),
+          ),
         ),
         SizedBox(
           height: 8,
         ),
-        Row(
-          children: <Widget>[
-            OvalImage(
-              networkurl: usu.urlFoto75,
-              size: 40,
-              placeholder: 'assets/images/perfil.jpg',
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text('${usu.nome} ${usu.sobrenome}')
-          ],
+        ListTile(
+          leading: OvalImage(
+            networkurl: usu.urlFoto75,
+            size: 40,
+            placeholder: 'assets/images/perfil.jpg',
+          ),
+          title: Text('${usu.nome} ${usu.sobrenome}'),
         ),
         SizedBox(
           height: 8,
@@ -123,25 +121,23 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Barbeiro',
-          style: textStyleBold(),
+        ListTile(
+          leading: Icon(FontAwesome.users),
+          title: Text(
+            'Barbeiro',
+            style: textStyleBold(),
+          ),
         ),
         SizedBox(
           height: 8,
         ),
-        Row(
-          children: <Widget>[
-            OvalImage(
-              networkurl: barb.urlFoto75,
-              size: 40,
-              placeholder: 'assets/images/perfil.jpg',
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text('${barb.nome} ')
-          ],
+        ListTile(
+          leading: OvalImage(
+            networkurl: barb.urlFoto75,
+            size: 40,
+            placeholder: 'assets/images/perfil.jpg',
+          ),
+          title: Text('${barb.nome} '),
         ),
         SizedBox(
           height: 16,
@@ -155,25 +151,23 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Serviço',
-          style: textStyleBold(),
+        ListTile(
+          leading: Icon(FontAwesome.scissors),
+          title: Text(
+            'Serviço',
+            style: textStyleBold(),
+          ),
         ),
         SizedBox(
           height: 8,
         ),
-        Row(
-          children: <Widget>[
-            OvalImage(
-              networkurl: serv.urlFoto75,
-              size: 40,
-              placeholder: 'assets/images/default_servico.png',
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text('${serv.descricao}')
-          ],
+        ListTile(
+          leading: OvalImage(
+            networkurl: serv.urlFoto75,
+            size: 40,
+            placeholder: 'assets/images/default_servico.png',
+          ),
+          title: Text('${serv.descricao}'),
         ),
         SizedBox(
           height: 8,
@@ -201,10 +195,12 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Agendamento',
-          style: textStyleBold(),
-        ),
+        ListTile(
+            leading: Icon(FontAwesome.calendar_times_o),
+            title: Text(
+              'Agendamento',
+              style: textStyleBold(),
+            )),
         SizedBox(
           height: 8,
         ),
@@ -224,9 +220,12 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Divider(),
-        Text(
-          'Feedback',
-          style: textStyleBold(),
+        ListTile(
+          leading: Icon(FontAwesome.comments_o),
+          title: Text(
+            'Feedback',
+            style: textStyleBold(),
+          ),
         ),
         SizedBox(
           height: 8,
