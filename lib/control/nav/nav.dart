@@ -2,8 +2,8 @@ import 'package:app4geracao/pages/splashscreen/splashscreen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-push(BuildContext context, Widget page) {
-  Navigator.push(
+Future push(BuildContext context, Widget page) {
+  return Navigator.push(
       context,
       PageTransition(
           type: PageTransitionType.rightToLeftWithFade, child: page));

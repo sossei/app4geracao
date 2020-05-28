@@ -51,7 +51,8 @@ class _ListServicoPageState extends State<ListServicoPage>
           ? null
           : FloatingActionButton(
               onPressed: () {
-                push(context, SaveServicoPage());
+                push(context, SaveServicoPage())
+                    .then((value) => _controller.fetchData());
               },
               child: Icon(Icons.add),
             ),
@@ -118,7 +119,7 @@ class _ListServicoPageState extends State<ListServicoPage>
                     context,
                     SaveServicoPage(
                       servico: servico,
-                    ));
+                    )).then((value) => _controller.fetchData());
               else {
                 widget.trabalho.servico = servico;
                 push(

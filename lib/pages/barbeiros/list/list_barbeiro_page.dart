@@ -54,7 +54,8 @@ class _ListBarbeiroPageState extends State<ListBarbeiroPage>
           ? null
           : FloatingActionButton(
               onPressed: () {
-                push(context, SaveBarbeiroPage());
+                push(context, SaveBarbeiroPage())
+                    .then((value) => _controller.fetchData());
               },
               child: Icon(Icons.add),
             ),
@@ -159,14 +160,15 @@ class _ListBarbeiroPageState extends State<ListBarbeiroPage>
             onTap: () {
               if (widget.trabalho != null) widget.trabalho.barbeiro = barbeiro;
               push(
-                  context,
-                  widget.trabalho != null
-                      ? CalendarMonthPage(
-                          trabalho: widget.trabalho,
-                        )
-                      : SaveBarbeiroPage(
-                          barbeiro: barbeiro,
-                        ));
+                      context,
+                      widget.trabalho != null
+                          ? CalendarMonthPage(
+                              trabalho: widget.trabalho,
+                            )
+                          : SaveBarbeiroPage(
+                              barbeiro: barbeiro,
+                            ))
+                  .then((value) => _controller.fetchData());
             },
             onLongPress: () {
               if (widget.trabalho == null) askDelete(barbeiro);

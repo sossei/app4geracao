@@ -49,7 +49,8 @@ class _ListClientePageState extends State<ListClientePage>
       body: buildBody(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          push(context, CadastroPage());
+          push(context, CadastroPage())
+              .then((value) => _controller.fetchData());
         },
         child: Icon(Icons.add),
       ),
