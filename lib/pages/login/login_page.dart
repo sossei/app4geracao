@@ -15,6 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   LoginController _controller = LoginController();
   AnimationController animationController;
+  final FocusNode _email = FocusNode();
+  final FocusNode _senha = FocusNode();
   @override
   void initState() {
     animationController = AnimationController(
@@ -130,7 +132,12 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               children: <Widget>[
                 SizedBox(height: 16),
                 TextFormField(
+                  focusNode: _email,
                   initialValue: _controller.email,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(_email, _senha);
+                  },
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value.isEmpty) return 'Campo obrigatório';
@@ -151,6 +158,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: 16),
                 TextFormField(
+                  focusNode: _senha,
                   initialValue: _controller.senha,
                   obscureText: true,
                   validator: (value) {
@@ -205,8 +213,76 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       ),
       onTap: () {
-        print('Esqueci minha senha!');
+        showModalBottomSheet(
+            context: context,
+            builder: (_) {
+              _controller.senha = '';
+              return resetSenha();
+            });
       },
+    );
+  }
+
+  _fieldFocusChange(FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  Widget resetSenha() {
+    return BottomSheet(
+      onClosing: () {},
+      builder: (_) {
+        return Observer(builder: (_) {
+          return Card(
+              child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Form(
+                    key: _controller.formKeyResetSenha,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 16),
+                        Text(
+                            'Entre com seu e-mail para resetar sua senha, sua nova senha será enviada no e-mail inserido'),
+                        SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: _controller.email,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Campo obrigatório';
+                            if (!value.contains('@')) return 'Email inválido';
+                            _controller.emailResetSenha = value;
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Digite seu e-mail',
+                            labelStyle: TextStyle(color: Color(0xFF261610)),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF402719),
+                              ),
+                            ),
+                            labelText: 'Email',
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Button4Geracao(
+                          title: 'Resetar senha',
+                          action: () {
+                            _controller.resetSenha().then((value) {
+                              if (value) {
+                                Navigator.pop(context);
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  )));
+        });
+      },
+      backgroundColor: Colors.white,
+      elevation: 4,
     );
   }
 }

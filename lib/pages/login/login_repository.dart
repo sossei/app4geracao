@@ -36,4 +36,14 @@ class LoginRepository {
     Estabelecimento esta = Estabelecimento.fromJson(jsonDecode(body));
     await EstabelecimentoPref().saveEstabelecimento(esta);
   }
+
+  Future resetSenha(String email) async {
+    String url = '$awsurl/usuario/resetsenha';
+    String json = jsonEncode({"email": email});
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 10));
+    getResponse(response);
+  }
 }

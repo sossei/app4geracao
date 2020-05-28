@@ -25,9 +25,10 @@ abstract class _LoginControllerBase with Store {
   }
 
   final formKey = GlobalKey<FormState>();
+  final formKeyResetSenha = GlobalKey<FormState>();
   String email, senha;
   LoginRepository _repository = LoginRepository();
-
+  String emailResetSenha;
   Future<bool> login() async {
     setMsgErro(null);
     try {
@@ -43,6 +44,29 @@ abstract class _LoginControllerBase with Store {
       debugPrint('$e - $s');
       setMsgErro(e.toString());
     }
+    _setRequesting(false);
+    return false;
+  }
+
+  Future<bool> resetSenha() async {
+    setMsgErro(null);
+    try {
+      if (formKeyResetSenha.currentState.validate()) {
+        _setRequesting(true);
+        LoginRepository().resetSenha(emailResetSenha).then((_) {
+          _setRequesting(false);
+        }).catchError((e, s) {
+          debugPrint('$e - $s');
+          setMsgErro(e.toString());
+          _setRequesting(false);
+        });
+        return true;
+      }
+    } catch (e, s) {
+      debugPrint('$e - $s');
+      setMsgErro(e.toString());
+    }
+    _setRequesting(false);
     return false;
   }
 }
