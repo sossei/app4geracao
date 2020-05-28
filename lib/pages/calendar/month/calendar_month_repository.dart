@@ -26,6 +26,25 @@ class CalendarMonthRepository {
     return await _prepareData(trabalhos, initDate, endDate);
   }
 
+  Future<Map<DateTime, List<Trabalho>>> listTrabalhoSimples(
+      DateTime initDate, DateTime endDate) async {
+    int init = DateTime(initDate.year, initDate.month, initDate.day, 0)
+        .millisecondsSinceEpoch;
+    int end = DateTime(endDate.year, endDate.month, endDate.day, 24)
+        .millisecondsSinceEpoch;
+    String url = '$awsurl/trabalho/listsimples';
+    String json = jsonEncode({'init': init, 'end': end});
+    var response = await http
+        .post(url,
+            headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
+        .timeout(Duration(seconds: 15));
+    String body = getResponse(response);
+    Iterable parsedListJson = jsonDecode(body);
+    List<Trabalho> trabalhos = List<Trabalho>.from(
+        parsedListJson.map((i) => Trabalho.fromJsonSimples(i)));
+    return await _prepareData(trabalhos, initDate, endDate);
+  }
+
   Future<bool> get isAdmin async =>
       (await UsuarioPref().getUsuario()).estabelecimento != null;
   Future<Map<DateTime, List<Trabalho>>> _prepareData(

@@ -64,7 +64,12 @@ abstract class _CalendarMonthControllerBase with Store {
   fetchData(DateTime initDate, DateTime endDate) async {
     if (!isRequesting) _setRequesting(true);
     try {
-      Map map = await CalendarMonthRepository().listTrabalho(initDate, endDate);
+      Map map;
+      if (isAdmin)
+        map = await CalendarMonthRepository().listTrabalho(initDate, endDate);
+      else
+        map = await CalendarMonthRepository()
+            .listTrabalhoSimples(initDate, endDate);
       setMap(map);
       _setRequesting(false);
       animationController.forward();

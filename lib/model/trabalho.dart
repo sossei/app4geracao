@@ -58,6 +58,18 @@ class Trabalho {
     rating = json['rating'];
     feedback = json['feedback'];
   }
+  Trabalho.fromJsonSimples(Map<String, dynamic> json) {
+    trabTimestamp = json['trabTimestamp'];
+    usuario =
+        json['usuario'] != null ? new Usuario(email: json['usuario']) : null;
+    barbeiro =
+        json['barbeiro'] != null ? new Barbeiro(id: json['barbeiro']) : null;
+    servico = json['servico'] != null ? new Servico(id: json['servico']) : null;
+    antes = json['antes'];
+    depois = json['depois'];
+    rating = json['rating'];
+    feedback = json['feedback'];
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
