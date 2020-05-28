@@ -402,6 +402,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
   _buildItem(int index) {
     DateTime item = itens[index];
     bool isInvalid = item.hour == 12;
+    bool jaPassou = item.subtract(Duration(hours: 1)).isBefore(DateTime.now());
     bool isSelected = selectedIndex != null &&
         (selectedIndex == index ||
             (widget.isTwo && selectedIndex + 1 == index));
@@ -431,6 +432,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
               });
         }
         if (temAgendamento) return;
+        if (jaPassou) return;
         _onTapUnselected(index);
       },
       child: Stack(
@@ -447,9 +449,11 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
                     ? _itemAgendamento(trab, index)
                     : isSelected
                         ? _itemSelected(index)
-                        : Container(
-                            height: tamanhoItem,
-                          ),
+                        : jaPassou
+                            ? _itemInvalid()
+                            : Container(
+                                height: tamanhoItem,
+                              ),
           ),
           Container(
             width: 1,
