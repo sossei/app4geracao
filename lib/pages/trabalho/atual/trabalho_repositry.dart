@@ -30,7 +30,7 @@ class TrabalhoRepository {
             headers: awskey, body: json, encoding: Encoding.getByName('utf-8'))
         .timeout(Duration(seconds: 15));
     String body = getResponse(response);
-    if (body == null || body.isEmpty)
+    if (body == null || body.isEmpty || body == 'null')
       return null;
     else {
       Trabalho trab = Trabalho.fromJson(jsonDecode(body));

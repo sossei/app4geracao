@@ -42,6 +42,7 @@
     <string>Can I use the camera please?</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Can I use the mic please?</string>
-
+	<key>NSCalendarsUsageDescription</key>
+	<string>Can I use the calendar please?</string>
 </dict>
 </plist>

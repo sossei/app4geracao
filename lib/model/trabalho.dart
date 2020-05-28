@@ -25,6 +25,9 @@ class Trabalho {
   int rating;
   String feedback;
   DateTime get date => DateTime.fromMillisecondsSinceEpoch(trabTimestamp);
+  DateTime get dateStart => DateTime.fromMillisecondsSinceEpoch(trabTimestamp);
+  DateTime get dateEnd => DateTime.fromMillisecondsSinceEpoch(
+      trabTimestamp + (servico.tempo * 60 * 100).round());
   String get dateFormatted =>
       '${DateFormat.yMEd('pt').format(date)} as ${DateFormat.Hm().format(date)}';
   String get justDateFormatted => DateFormat.yMEd('pt').format(date);

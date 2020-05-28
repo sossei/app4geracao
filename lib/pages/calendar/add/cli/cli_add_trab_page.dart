@@ -6,6 +6,7 @@ import 'package:app4geracao/model/barbeiro.dart';
 import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/model/usuario.dart';
+import 'package:app4geracao/pages/calendar/addevent/list_calendar_page.dart';
 import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,37 @@ class CliAddTrabPageState extends State<CliAddTrabPage> {
               child: new Text("Ok"),
               onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  adicionarEventoCalendario() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Seu calendário"),
+          content: new Text(
+              "Deseja criar um evento em seu calendario, para te lembrar?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Sim"),
+              onPressed: () {
+                push(context, ListCalendarPage(trabalho: widget.trabalho))
+                    .then((value) => returnSplash(context));
+              },
+            ),
+            new FlatButton(
+              child: new Text("Não"),
+              onPressed: () {
+                returnSplash(context);
               },
             ),
           ],
@@ -269,7 +301,7 @@ class CliAddTrabPageState extends State<CliAddTrabPage> {
               encoding: Encoding.getByName('utf-8'))
           .timeout(Duration(seconds: 15));
       getResponse(response);
-      returnSplash(context);
+      adicionarEventoCalendario();
     } catch (e, s) {
       debugPrint('$e - $s');
       _showDialogError();
