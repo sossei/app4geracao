@@ -1,11 +1,15 @@
 import 'package:app4geracao/control/nav/nav.dart';
 import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/control/web/aws.dart';
+import 'package:app4geracao/pages/perfil/edit/address/edit_address_page.dart';
 import 'package:app4geracao/pages/perfil/perfil_controller.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'edit/edit_perfil_page.dart';
 
 class PerfilPage extends StatefulWidget {
   @override
@@ -22,10 +26,10 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
   void initState() {
     _controller.fetchData();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+        duration: const Duration(milliseconds: 300), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeInCubic);
     controllerLabel = AnimationController(
-        duration: const Duration(milliseconds: 1500), vsync: this);
+        duration: const Duration(milliseconds: 300), vsync: this);
     animationLAbel =
         CurvedAnimation(parent: controllerLabel, curve: Curves.easeIn);
     controller.forward();
@@ -55,7 +59,6 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
               padding:
                   const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8),
               child: Container(
-                margin: EdgeInsets.all(16),
                 width: double.infinity,
                 child: FadeTransition(
                   opacity: animation,
@@ -101,8 +104,6 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
 
   _buildFormCliente() {
     return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Expanded(
           child: SingleChildScrollView(
@@ -110,24 +111,6 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
               children: <Widget>[
                 SizedBox(
                   height: 32,
-                ),
-                Container(
-                  height: _controller.estabelecimento != null ? 100 : 200,
-                  width: _controller.estabelecimento != null ? 100 : 200,
-                  child: ClipOval(
-                    child: _controller.usuario.fotoPerfil != null
-                        ? FadeInImage.assetNetwork(
-                            placeholder: 'assets/images/perfil.jpg',
-                            image: awss3 +
-                                't150_' +
-                                _controller.usuario.fotoPerfil,
-                            fit: BoxFit.fitWidth,
-                          )
-                        : Image.asset('assets/images/perfil.jpg'),
-                  ),
-                ),
-                SizedBox(
-                  height: 16,
                 ),
                 FadeTransition(
                   opacity: animationLAbel,
@@ -138,58 +121,79 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
                   ),
                 ),
                 SizedBox(
-                  height: 32,
+                  height: 16,
                 ),
-                FadeTransition(
-                  opacity: animationLAbel,
-                  child: Text(
-                    'Email: ${_controller.usuario.email}',
-                    textAlign: TextAlign.center,
-                  ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      height: 80,
+                      width: 80,
+                      child: ClipOval(
+                        child: _controller.usuario.fotoPerfil != null
+                            ? FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/perfil.jpg',
+                                image: awss3 +
+                                    't150_' +
+                                    _controller.usuario.fotoPerfil,
+                                fit: BoxFit.fitWidth,
+                              )
+                            : Image.asset('assets/images/perfil.jpg'),
+                      ),
+                    ),
+                    Expanded(
+                      child: FadeTransition(
+                        opacity: animationLAbel,
+                        child: ListTile(
+                            title: Text(
+                              'Email: ${_controller.usuario.email}',
+                              textAlign: TextAlign.center,
+                            ),
+                            subtitle: Text(
+                              'Contato: ${_controller.usuario.telefone}',
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
+                    )
+                  ],
                 ),
                 SizedBox(
                   height: 16,
-                ),
-                FadeTransition(
-                  opacity: animationLAbel,
-                  child: Text(
-                    'Contato: ${_controller.usuario.telefone}',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(
-                  height: 64,
                 ),
               ],
             ),
           ),
         ),
-        Button4Geracao(
-          title: 'Editar perfil',
-          action: () async {
-            // await FirebaseMessaging().deleteInstanceID();
-            // await UsuarioPref().clear();
-            // returnSplash(context);
-          },
+        Divider(),
+        ListTile(
+          title: Text('Editar informações'),
+          leading: Icon(FontAwesome.user),
+          onTap: () => push(context, EditPerfilpage()),
         ),
-        SizedBox(
-          height: 16,
+        Divider(),
+        ListTile(
+          title: Text('Endereço'),
+          leading: Icon(FontAwesome.home),
+          onTap: () => push(context, EditAddressPage()),
         ),
-        InkWell(
-          child: Container(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Sair',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
+        Divider(),
+        ListTile(
+          title: Text('Trocar senha'),
+          leading: Icon(FontAwesome.key),
+          onTap: () => push(context, EditPerfilpage()),
+        ),
+        Divider(),
+        ListTile(
+          title: Text('Sair'),
+          leading: Icon(FontAwesome.sign_out),
           onTap: () async {
             await FirebaseMessaging().deleteInstanceID();
             await UsuarioPref().clear();
             returnSplash(context);
           },
-        )
+        ),
+        SizedBox(
+          height: 16,
+        ),
       ],
     );
   }

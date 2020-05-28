@@ -7,6 +7,7 @@ import 'package:app4geracao/widgets/panel_empty.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'list_cliente_controller.dart';
@@ -52,7 +53,7 @@ class _ListClientePageState extends State<ListClientePage>
           push(context, CadastroPage())
               .then((value) => _controller.fetchData());
         },
-        child: Icon(Icons.add),
+        child: Icon(FontAwesome.plus),
       ),
     );
   }
@@ -102,7 +103,7 @@ class _ListClientePageState extends State<ListClientePage>
                 disabledBorder: InputBorder.none,
                 contentPadding:
                     EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                suffixIcon: Icon(Icons.search)),
+                suffixIcon: Icon(FontAwesome.search)),
             onChanged: (value) {
               _controller.filtrar(value);
             },

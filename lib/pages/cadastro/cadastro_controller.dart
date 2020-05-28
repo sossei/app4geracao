@@ -52,6 +52,7 @@ abstract class _CadastroControllerBase with Store {
     setMsgErro(null);
     try {
       if (formCliente.currentState.validate()) {
+        setMsgErro(null);
         _setRequesting(true);
         endereco = Endereco();
         usuario.endereco = endereco;
@@ -81,7 +82,9 @@ abstract class _CadastroControllerBase with Store {
     setMsgErro(null);
     try {
       if (formCliente.currentState.validate()) {
+        setMsgErro(null);
         _setRequesting(true);
+
         usuario.endereco = endereco;
         await _repository.editar(usuario);
         await UsuarioPref().saveUsuario(usuario);

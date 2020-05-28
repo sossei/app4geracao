@@ -4,6 +4,7 @@ import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginPage extends StatefulWidget {
@@ -145,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   decoration: InputDecoration(
                     prefixIcon: Icon(
-                      Icons.lock,
+                      FontAwesome.lock,
                       color: Theme.of(context).accentColor,
                     ),
                     hintText: 'Digite sua senha',

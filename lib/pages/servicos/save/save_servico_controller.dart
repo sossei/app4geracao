@@ -33,7 +33,9 @@ abstract class _SaveServicoControllerBase with Store {
 
   final form = GlobalKey<FormState>();
   Future<bool> save() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     if (form.currentState.validate()) {
       try {
         await SaveServicoRepository().saveServico(servico);

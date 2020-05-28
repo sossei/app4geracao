@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import 'button_4geracao.dart';
 
@@ -45,7 +46,7 @@ class PanelError extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Icon(
-          Icons.error_outline,
+          FontAwesome.exclamation_circle,
           color: Colors.red,
           size: 48,
         ),

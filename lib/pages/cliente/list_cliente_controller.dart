@@ -35,13 +35,17 @@ abstract class _ListClienteControllerBase with Store {
 
   @action
   filtrar(String value) {
+    setMsgErro(null);
     _setRequesting(true);
+
     filter = value;
     _setRequesting(false);
   }
 
   fetchData() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       var list = await ListClienteRepository().listCliente();
       _setUsuarios(list);

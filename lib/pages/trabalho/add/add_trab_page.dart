@@ -9,6 +9,7 @@ import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'add_trab_controller.dart';
@@ -48,7 +49,7 @@ class _AddTrabPageState extends State<AddTrabPage> {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.list),
+                child: Icon(FontAwesome.list_ul),
               ))
         ],
       ),

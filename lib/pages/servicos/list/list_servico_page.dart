@@ -3,6 +3,7 @@ import 'package:app4geracao/model/servico.dart';
 import 'package:app4geracao/model/trabalho.dart';
 import 'package:app4geracao/pages/barbeiros/list/list_barbeiro_page.dart';
 import 'package:app4geracao/pages/servicos/save/save_servico_page.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'list_servico_controller.dart';
 import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_empty.dart';
@@ -54,7 +55,7 @@ class _ListServicoPageState extends State<ListServicoPage>
                 push(context, SaveServicoPage())
                     .then((value) => _controller.fetchData());
               },
-              child: Icon(Icons.add),
+              child: Icon(FontAwesome.plus),
             ),
     );
   }

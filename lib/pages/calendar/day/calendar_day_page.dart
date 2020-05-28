@@ -5,6 +5,7 @@ import 'package:app4geracao/pages/trabalho/trabalho_detalhes_page.dart';
 import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_uploadimage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 class CalendarDaypage extends StatefulWidget {
@@ -179,7 +180,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
                           fotoAntes();
                         },
                         child: Icon(
-                          Icons.done,
+                          FontAwesome.check,
                         ),
                       ),
                     ],
@@ -212,7 +213,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
                     height: 16,
                   ),
                   Icon(
-                    Icons.person_outline,
+                    FontAwesome.camera,
                     color: Colors.grey,
                     size: 56,
                   ),

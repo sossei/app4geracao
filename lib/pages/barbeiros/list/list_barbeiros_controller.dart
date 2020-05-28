@@ -33,7 +33,9 @@ abstract class _ListBarbeiroControllerBase with Store {
   }
 
   fetchData() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       var list = await _repository.listBarbeiros();
       _setBarbeiros(list);
@@ -45,7 +47,9 @@ abstract class _ListBarbeiroControllerBase with Store {
   }
 
   deleteItem(Barbeiro barbeiro) async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       await _repository.deleteBarbeiro(barbeiro);
       barbeiros.remove(barbeiro);

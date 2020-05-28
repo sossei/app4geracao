@@ -32,7 +32,9 @@ abstract class _LoginControllerBase with Store {
     setMsgErro(null);
     try {
       if (formKey.currentState.validate()) {
+        setMsgErro(null);
         _setRequesting(true);
+
         Usuario usuario = await _repository.login(email, senha);
         await UsuarioPref().saveUsuario(usuario);
         return true;

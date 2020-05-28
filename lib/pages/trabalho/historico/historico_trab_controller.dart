@@ -32,8 +32,9 @@ abstract class _HistoricoTrabControllerBase with Store {
   }
 
   fecthData() async {
-    _setRequesting(true);
     setMsgErro(null);
+    _setRequesting(true);
+
     try {
       List<Trabalho> list =
           await HistoricoTrabRepository().listTrabalhoByCliente();

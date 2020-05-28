@@ -52,7 +52,9 @@ abstract class _AddTrabControllerBase with Store {
   fetchData() async {
     trabalho = Trabalho();
     trabalho.usuario = usuario;
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       AddTrabRepository _repository = AddTrabRepository();
       servicos = await _repository.listServico();

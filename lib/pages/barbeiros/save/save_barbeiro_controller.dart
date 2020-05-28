@@ -34,7 +34,9 @@ abstract class _SaveBarbeiroControllerBase with Store {
 
   final form = GlobalKey<FormState>();
   Future<bool> save() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     if (form.currentState.validate()) {
       try {
         await SaveBarbeiroRepository().saveBarbeiro(barbeiro);

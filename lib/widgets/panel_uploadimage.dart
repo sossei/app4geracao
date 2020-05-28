@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app4geracao/control/web/uploadfile.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -66,7 +67,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Icon(
-                        Icons.photo_library,
+                        FontAwesome.folder_open,
                         color: kLightGray,
                       ),
                     ),
@@ -88,7 +89,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Icon(
-                  Icons.camera_alt,
+                  FontAwesome.camera,
                   color: kLightGray,
                 ),
               ),

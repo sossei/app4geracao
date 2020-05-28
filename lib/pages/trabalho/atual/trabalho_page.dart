@@ -292,27 +292,27 @@ class _TrabalhoPageState extends State<TrabalhoPage> {
                     switch (index) {
                       case 0:
                         return Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.yellow,
                         );
                       case 1:
                         return Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.yellow,
                         );
                       case 2:
                         return Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.yellow,
                         );
                       case 3:
                         return Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.yellow,
                         );
                       case 4:
                         return Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.yellow,
                         );
                     }

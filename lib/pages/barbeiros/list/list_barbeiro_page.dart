@@ -10,6 +10,7 @@ import 'package:app4geracao/widgets/panel_empty.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'list_barbeiros_controller.dart';
@@ -57,7 +58,7 @@ class _ListBarbeiroPageState extends State<ListBarbeiroPage>
                 push(context, SaveBarbeiroPage())
                     .then((value) => _controller.fetchData());
               },
-              child: Icon(Icons.add),
+              child: Icon(FontAwesome.plus),
             ),
     );
   }

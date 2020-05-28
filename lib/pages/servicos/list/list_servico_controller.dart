@@ -32,7 +32,9 @@ abstract class _ListServicoControllerBase with Store {
   }
 
   fetchData() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       var list = await ListServicoRepository().listServico();
       _setServicos(list);
@@ -44,7 +46,9 @@ abstract class _ListServicoControllerBase with Store {
   }
 
   deleteItem(Servico servico) async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       await ListServicoRepository().deleteServico(servico);
       servicos.remove(servico);

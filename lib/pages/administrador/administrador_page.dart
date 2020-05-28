@@ -6,6 +6,7 @@ import 'package:app4geracao/pages/perfil/perfil_page.dart';
 import 'package:app4geracao/pages/servicos/list/list_servico_page.dart';
 import 'package:app4geracao/pages/trabalho/list_trabalho/list_trabalho_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class AdministradorPage extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _AdministradorPageState extends State<AdministradorPage> {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
-          child: Icon(Icons.account_circle),
+          child: Icon(FontAwesome.user_circle),
           onTap: () {
             push(context, PerfilPage());
           },
@@ -41,14 +42,14 @@ class _AdministradorPageState extends State<AdministradorPage> {
           color: Colors.grey,
         ),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today), title: Text("Agenda")),
+              icon: Icon(FontAwesome.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.room_service), title: Text("Serviços")),
+              icon: Icon(FontAwesome.calendar), title: Text("Agenda")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.perm_contact_calendar),
-              title: Text("Barbeiros")),
+              icon: Icon(FontAwesome.scissors), title: Text("Serviços")),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesome.users), title: Text("Barbeiros")),
         ],
       ),
     );

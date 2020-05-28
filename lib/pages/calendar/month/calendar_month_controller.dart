@@ -62,7 +62,9 @@ abstract class _CalendarMonthControllerBase with Store {
   AnimationController animationController;
 
   fetchData(DateTime initDate, DateTime endDate) async {
-    if (!isRequesting) _setRequesting(true);
+    setMsgErro(null);
+    _setRequesting(true);
+
     try {
       Map map;
       if (isAdmin)

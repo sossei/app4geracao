@@ -77,7 +77,9 @@ abstract class _ListTrabalhoControllerBase with Store {
   var formatter = new DateFormat('yyyy-MM-dd');
   var formatterPretty = new DateFormat('dd/MM/yyyy');
   fecthData() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       setUsuario(await ListTrabalhoRepository().getUsuario());
       setEstabelecimento(await ListTrabalhoRepository().getEstabelecimento());
@@ -94,7 +96,9 @@ abstract class _ListTrabalhoControllerBase with Store {
   }
 
   fetchDataFilter() async {
+    setMsgErro(null);
     _setRequesting(true);
+
     try {
       List<Trabalho> list =
           await ListTrabalhoRepository().getListTrabalho(data);

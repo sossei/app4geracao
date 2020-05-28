@@ -9,6 +9,7 @@ import 'package:app4geracao/model/usuario.dart';
 import 'package:app4geracao/widgets/image_oval.dart';
 import 'package:app4geracao/widgets/panel_uploadimage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -300,27 +301,27 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
         switch (index) {
           case 0:
             return Icon(
-              Icons.star,
+              FontAwesome.star,
               color: Colors.yellow,
             );
           case 1:
             return Icon(
-              Icons.star,
+              FontAwesome.star,
               color: Colors.yellow,
             );
           case 2:
             return Icon(
-              Icons.star,
+              FontAwesome.star,
               color: Colors.yellow,
             );
           case 3:
             return Icon(
-              Icons.star,
+              FontAwesome.star,
               color: Colors.yellow,
             );
           case 4:
             return Icon(
-              Icons.star,
+              FontAwesome.star,
               color: Colors.yellow,
             );
         }

@@ -7,6 +7,7 @@ import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:app4geracao/widgets/panel_error.dart';
 import 'package:app4geracao/widgets/panel_requesting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'list_trabalho_controller.dart';
@@ -38,7 +39,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
             if (_controller.isFiltered) {
               return InkWell(
                 child: Icon(
-                  Icons.check_box,
+                  FontAwesome.check_square,
                   color: Colors.white,
                 ),
                 onTap: () {
@@ -48,7 +49,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
             }
             return InkWell(
               child: Icon(
-                Icons.check_box_outline_blank,
+                FontAwesome.check_square_o,
                 color: Colors.white,
               ),
               onTap: () {
@@ -84,7 +85,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Icon(
-            Icons.error_outline,
+            FontAwesome.exclamation_circle,
             color: Colors.grey,
             size: 48,
           ),
@@ -149,7 +150,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                     _controller.setData(picked);
                   },
                   child: Text(
-                    _controller.dataFormatted,
+                    _controller?.dataFormatted ?? '--',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -158,7 +159,7 @@ class _ListTrabalhoPageState extends State<ListTrabalhoPage> {
                 )),
           ),
           Expanded(
-            child: _controller.trabalhos.isEmpty
+            child: _controller?.trabalhos?.isEmpty ?? true
                 ? _builEmpty()
                 : ListView.builder(
                     itemBuilder: (_, pos) {
