@@ -26,7 +26,8 @@ class Trabalho {
   String feedback;
   DateTime get date => DateTime.fromMillisecondsSinceEpoch(trabTimestamp);
   String get dateFormatted =>
-      ' ${DateFormat.yMEd('pt').format(date)} as ${DateFormat.Hm().format(date)}';
+      '${DateFormat.yMEd('pt').format(date)} as ${DateFormat.Hm().format(date)}';
+  String get justDateFormatted => DateFormat.yMEd('pt').format(date);
   bool get finalizado => DateTime.fromMillisecondsSinceEpoch(
           trabTimestamp + (servico.tempo * 60 * 100).round())
       .isBefore(DateTime.now());

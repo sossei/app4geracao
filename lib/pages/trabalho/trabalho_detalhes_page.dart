@@ -15,8 +15,9 @@ import 'package:intl/intl.dart';
 
 class TrabalhoDetahePage extends StatefulWidget {
   final Trabalho trabalho;
-
-  const TrabalhoDetahePage({Key key, this.trabalho}) : super(key: key);
+  final bool canCancel;
+  const TrabalhoDetahePage({Key key, this.trabalho, this.canCancel = true})
+      : super(key: key);
   @override
   _TrabalhoDetahePageState createState() => _TrabalhoDetahePageState();
 }
@@ -49,7 +50,7 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
               ),
             ),
           ),
-          buttonSalvar(),
+          widget.canCancel ? buttonSalvar() : Container(),
         ],
       ),
     );
