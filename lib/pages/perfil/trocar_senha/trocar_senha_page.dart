@@ -117,9 +117,15 @@ class _TrocarSenhaPageState extends State<TrocarSenhaPage>
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Divider(),
+                        SizedBox(
+                          height: 16,
+                        ),
                         TextFormField(
                           focusNode: _novaSenha,
-                          initialValue: _controller.usuario.senha,
                           validator: (value) {
                             if (value.isEmpty) return 'Campo obrigatório';
                             if (value.length < 6) return 'Mínimo 6 caracteres';

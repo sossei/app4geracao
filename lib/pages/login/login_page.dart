@@ -13,14 +13,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
-  BuildContext context;
   LoginController _controller = LoginController();
   AnimationController animationController;
   @override
   void initState() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 500),
     );
     animationController.forward(from: 0.0);
     super.initState();
@@ -34,7 +33,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    this.context = context;
     return Stack(
       children: <Widget>[
         Image.asset(

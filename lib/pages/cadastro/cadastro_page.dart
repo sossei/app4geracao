@@ -35,9 +35,9 @@ class _CadastroPageState extends State<CadastroPage>
   void initState() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 500),
     );
-    animationController.forward(from: 0.0);
+    animationController.forward();
     super.initState();
   }
 

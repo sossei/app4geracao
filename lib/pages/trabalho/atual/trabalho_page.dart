@@ -300,7 +300,7 @@ class _TrabalhoPageState extends State<TrabalhoPage>
                   onRatingUpdate: (rating) {
                     _controller.trabalho.rating = rating.round();
                   },
-                  initialRating: 1,
+                  initialRating: 5,
                   allowHalfRating: false,
                   itemCount: 5,
                   itemSize: 48,

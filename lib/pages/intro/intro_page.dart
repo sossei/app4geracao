@@ -10,12 +10,26 @@ class IntroPage extends StatefulWidget {
   _IntroPageState createState() => _IntroPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
-  BuildContext context;
+class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
+  AnimationController animationController;
+  @override
+  void initState() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    animationController.forward(from: 0.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    this.context = context;
     return Stack(
       children: <Widget>[
         Image.asset(
@@ -30,39 +44,47 @@ class _IntroPageState extends State<IntroPage> {
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
-          body: SafeArea(
-              child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Container(
-                    child: Center(
-                      child: Image.asset(
-                        'assets/images/logo_black.png',
-                        height: 200,
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 4,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      _buildTexts(),
-                      _buildButtons(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )),
+          body: body(),
         )
       ],
+    );
+  }
+
+  Widget body() {
+    Widget child = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Flexible(
+            flex: 2,
+            child: Container(
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logo_black.png',
+                  height: 200,
+                ),
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                _buildTexts(),
+                _buildButtons(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+    return SafeArea(
+      child: FadeTransition(
+          opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+          child: child),
     );
   }
 
