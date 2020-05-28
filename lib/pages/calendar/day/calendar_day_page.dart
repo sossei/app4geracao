@@ -59,18 +59,7 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
     return Scaffold(
       key: keyScafold,
       appBar: AppBar(
-        actions: <Widget>[
-          InkWell(
-            onTap: () {
-              pop(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.calendar_today),
-            ),
-          )
-        ],
-        leading: appBarLeading(),
+        title: Text(DateFormat.MMMMEEEEd('pt').format(widget.date)),
       ),
       body: body(),
     );
@@ -78,30 +67,6 @@ class _CalendarDaypageState extends State<CalendarDaypage> {
 
   Widget body() {
     return listDate();
-  }
-
-  Widget appBarLeading() {
-    return Column(
-      children: <Widget>[
-        Text(DateFormat('MMM').format(widget.date)),
-        Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-                color: isHoje ? Colors.green : Colors.black.withOpacity(0.8),
-                borderRadius: BorderRadius.all(const Radius.circular(40.0))),
-            child: Padding(
-                padding: EdgeInsets.all(2),
-                child: Center(
-                    child: Text(
-                  DateFormat('dd').format(widget.date),
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: isHoje ? Colors.black : Colors.white,
-                      fontWeight: FontWeight.bold),
-                )))),
-      ],
-    );
   }
 
   _showMessage(msg) {
