@@ -77,6 +77,10 @@ class _EditPerfilpageState extends State<EditPerfilpage>
   }
 
   _buildFormCliente() {
+    maskCelular.formatEditUpdate(TextEditingValue(text: ''),
+        TextEditingValue(text: _controller.usuario.telefone));
+    maskDataNascimento.formatEditUpdate(TextEditingValue(text: ''),
+        TextEditingValue(text: _controller.usuario.dataNascimento));
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
@@ -234,7 +238,9 @@ class _EditPerfilpageState extends State<EditPerfilpage>
               ),
               RaisedButton(
                 onPressed: () {
-                  _controller.save();
+                  _controller.save().then((value) async {
+                    Navigator.pop(context);
+                  });
                 },
                 color: Theme.of(context).accentColor,
                 child: Container(

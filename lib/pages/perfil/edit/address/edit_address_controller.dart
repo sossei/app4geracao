@@ -31,7 +31,7 @@ abstract class _EditAddressControllerBase with Store {
     setMsgErro(null);
     _setRequesting(true);
 
-    Usuario usuario = await EditAddressRepository().getUsuario();
+    usuario = await EditAddressRepository().getUsuario();
     endereco = usuario.endereco;
     _setRequesting(false);
   }
