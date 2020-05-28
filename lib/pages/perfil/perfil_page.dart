@@ -3,13 +3,13 @@ import 'package:app4geracao/control/preferences/user_pref.dart';
 import 'package:app4geracao/control/web/aws.dart';
 import 'package:app4geracao/pages/perfil/edit/address/edit_address_page.dart';
 import 'package:app4geracao/pages/perfil/perfil_controller.dart';
-import 'package:app4geracao/widgets/button_4geracao.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'edit/edit_perfil_page.dart';
+import 'trocar_senha/trocar_senha_page.dart';
 
 class PerfilPage extends StatefulWidget {
   @override
@@ -179,7 +179,7 @@ class _PerfilPageState extends State<PerfilPage> with TickerProviderStateMixin {
         ListTile(
           title: Text('Trocar senha'),
           leading: Icon(FontAwesome.key),
-          onTap: () => push(context, EditPerfilpage()),
+          onTap: () => push(context, TrocarSenhaPage()),
         ),
         Divider(),
         ListTile(

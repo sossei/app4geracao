@@ -9,10 +9,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   Widget build(BuildContext context) {
-    firebaseCloudMessaging_Listeners();
+    firebaseCloudMessagingListeners();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -48,29 +47,31 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void firebaseCloudMessaging_Listeners() {
-    if (Platform.isIOS) iOS_Permission();
+  void firebaseCloudMessagingListeners() {
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    if (Platform.isIOS) iOSPermission();
     _firebaseMessaging.setAutoInitEnabled(true);
-    _firebaseMessaging.getToken().then((token) {
-      print('Token: $token');
-    });
-    _firebaseMessaging.onTokenRefresh.asBroadcastStream().listen((token) {
-      print('Refersh token: $token');
-    });
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print('on message $message');
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print('on resume $message');
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print('on launch $message');
-      },
-    );
+    // _firebaseMessaging.getToken().then((token) {
+    //   print('Token: $token');
+    // });
+    // _firebaseMessaging.onTokenRefresh.asBroadcastStream().listen((token) {
+    //   print('Refersh token: $token');
+    // });
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     print('on message $message');
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     print('on resume $message');
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     print('on launch $message');
+    //   },
+    // );
   }
 
-  void iOS_Permission() {
+  void iOSPermission() {
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
     _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
