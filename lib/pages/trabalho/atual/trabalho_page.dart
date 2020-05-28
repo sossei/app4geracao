@@ -49,17 +49,6 @@ class _TrabalhoPageState extends State<TrabalhoPage>
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Barber 4°',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                ),
-              ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.all(8.0),

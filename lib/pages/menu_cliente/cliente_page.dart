@@ -18,7 +18,11 @@ class _ClientePageState extends State<ClientePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu'),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/images/ic_launcher_android.png'),
+        ),
+        title: Text('Barber 4°'),
       ),
       body: _body(),
       bottomNavigationBar: BottomNavigationBar(
@@ -37,7 +41,7 @@ class _ClientePageState extends State<ClientePage> {
           BottomNavigationBarItem(
               icon: Icon(FontAwesome.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesome.calendar), title: Text("Agenda")),
+              icon: Icon(FontAwesome.calendar), title: Text("Histórico")),
           BottomNavigationBarItem(
               icon: Icon(FontAwesome.user), title: Text("Perfil")),
         ],
