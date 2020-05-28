@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PanelRequesting extends StatelessWidget {
   final String descricao;
@@ -35,11 +36,18 @@ class PanelRequesting extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        CircularProgressIndicator(),
+        SpinKitFadingCube(
+          color: Color(0xFF5B4D33),
+          size: 50.0,
+        ),
         SizedBox(
           height: 24,
         ),
-        Text(descricao),
+        Text(descricao,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+            )),
       ],
     );
   }

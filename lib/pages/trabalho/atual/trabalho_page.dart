@@ -14,12 +14,25 @@ class TrabalhoPage extends StatefulWidget {
   _TrabalhoPageState createState() => _TrabalhoPageState();
 }
 
-class _TrabalhoPageState extends State<TrabalhoPage> {
+class _TrabalhoPageState extends State<TrabalhoPage>
+    with TickerProviderStateMixin {
   TrabalhoController _controller = TrabalhoController();
+  AnimationController animationController;
   @override
   void initState() {
     _controller.fetchData();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,7 +76,8 @@ class _TrabalhoPageState extends State<TrabalhoPage> {
                       shape: BoxShape.rectangle,
                       color: Colors.white),
                   child: Observer(builder: (_) {
-                    return _controller.msgErro != null
+                    animationController.forward(from: 0.0);
+                    Widget child = _controller.msgErro != null
                         ? buildError()
                         : _controller.isRequesting
                             ? buildLoading()
@@ -72,6 +86,10 @@ class _TrabalhoPageState extends State<TrabalhoPage> {
                                 : _controller.trabalho.isFinished
                                     ? trabalhoFinalizado()
                                     : trabalhoAberto();
+                    return FadeTransition(
+                        opacity: Tween(begin: 0.0, end: 1.0)
+                            .animate(animationController),
+                        child: child);
                   }),
                 ),
               ),

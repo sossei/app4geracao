@@ -13,7 +13,8 @@ class CadastroPage extends StatefulWidget {
   _CadastroPageState createState() => _CadastroPageState();
 }
 
-class _CadastroPageState extends State<CadastroPage> {
+class _CadastroPageState extends State<CadastroPage>
+    with TickerProviderStateMixin {
   CadastroController _controller = CadastroController();
   final FocusNode _email = FocusNode();
   final FocusNode _telefone = FocusNode();
@@ -29,6 +30,23 @@ class _CadastroPageState extends State<CadastroPage> {
       mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
   final maskDataNascimento = MaskTextInputFormatter(
       mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+  AnimationController animationController;
+  @override
+  void initState() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +57,11 @@ class _CadastroPageState extends State<CadastroPage> {
         }),
       ),
       body: Observer(builder: (_) {
-        return Center(child: _body());
+        animationController.forward(from: 0.0);
+        Widget child = Center(child: _body());
+        return FadeTransition(
+            opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+            child: child);
       }),
     );
   }

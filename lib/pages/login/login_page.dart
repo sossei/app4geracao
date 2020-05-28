@@ -12,12 +12,24 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   BuildContext context;
   LoginController _controller = LoginController();
+  AnimationController animationController;
   @override
   void initState() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -77,9 +89,13 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Observer(
         builder: (_) {
-          return _controller.msgErro != null
+          animationController.forward(from: 0.0);
+          Widget child = _controller.msgErro != null
               ? _buildError()
               : _controller.isRequesting ? _buildRequesting() : _buildPanel();
+          return FadeTransition(
+              opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+              child: child);
         },
       ),
     );

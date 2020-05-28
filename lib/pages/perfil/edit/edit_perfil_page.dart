@@ -11,7 +11,8 @@ class EditPerfilpage extends StatefulWidget {
   _EditPerfilpageState createState() => _EditPerfilpageState();
 }
 
-class _EditPerfilpageState extends State<EditPerfilpage> {
+class _EditPerfilpageState extends State<EditPerfilpage>
+    with TickerProviderStateMixin {
   EditPerfilController _controller = EditPerfilController();
 
   final FocusNode _telefone = FocusNode();
@@ -22,10 +23,22 @@ class _EditPerfilpageState extends State<EditPerfilpage> {
       mask: '(##) #####-####', filter: {"#": RegExp(r'[0-9]')});
   final maskDataNascimento = MaskTextInputFormatter(
       mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+  AnimationController animationController;
   @override
   void initState() {
     _controller.fetchData();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,9 +46,7 @@ class _EditPerfilpageState extends State<EditPerfilpage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Observer(builder: (_) {
-          return Text('Editar perfil');
-        }),
+        title: Text('Editar perfil'),
       ),
       body: Observer(builder: (_) {
         return Center(child: _body());
@@ -44,7 +55,8 @@ class _EditPerfilpageState extends State<EditPerfilpage> {
   }
 
   _body() {
-    return _controller.msgErro != null
+    animationController.forward(from: 0.0);
+    Widget child = _controller.msgErro != null
         ? PanelError(
             msgErro: _controller.msgErro,
             action: () {
@@ -59,6 +71,9 @@ class _EditPerfilpageState extends State<EditPerfilpage> {
                 withCard: false,
               )
             : _buildFormCliente();
+    return FadeTransition(
+        opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+        child: child);
   }
 
   _buildFormCliente() {

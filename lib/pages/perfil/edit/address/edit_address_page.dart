@@ -9,16 +9,29 @@ class EditAddressPage extends StatefulWidget {
   _EditAddressPageState createState() => _EditAddressPageState();
 }
 
-class _EditAddressPageState extends State<EditAddressPage> {
+class _EditAddressPageState extends State<EditAddressPage>
+    with TickerProviderStateMixin {
   EditAddressController _controller = EditAddressController();
   final FocusNode _rua = FocusNode();
   final FocusNode _numero = FocusNode();
   final FocusNode _estado = FocusNode();
   final FocusNode _cidade = FocusNode();
+  AnimationController animationController;
   @override
   void initState() {
     _controller.fetchData();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,7 +50,8 @@ class _EditAddressPageState extends State<EditAddressPage> {
   }
 
   _body() {
-    return _controller.msgErro != null
+    animationController.forward(from: 0.0);
+    Widget child = _controller.msgErro != null
         ? PanelError(
             msgErro: _controller.msgErro,
             action: () {
@@ -52,6 +66,9 @@ class _EditAddressPageState extends State<EditAddressPage> {
                 withCard: false,
               )
             : _buildFormEndereco();
+    return FadeTransition(
+        opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+        child: child);
   }
 
   _buildFormEndereco() {

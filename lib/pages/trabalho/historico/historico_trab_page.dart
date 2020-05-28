@@ -13,12 +13,25 @@ class HistoricoTrabPage extends StatefulWidget {
   _HistoricoTrabPageState createState() => _HistoricoTrabPageState();
 }
 
-class _HistoricoTrabPageState extends State<HistoricoTrabPage> {
+class _HistoricoTrabPageState extends State<HistoricoTrabPage>
+    with TickerProviderStateMixin {
   HistoricoTrabController _controller = HistoricoTrabController();
+  AnimationController animationController;
   @override
   void initState() {
     _controller.fecthData();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    animationController.forward(from: 0.0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,9 +44,17 @@ class _HistoricoTrabPageState extends State<HistoricoTrabPage> {
 
   Widget body() {
     return Observer(builder: (_) {
-      if (_controller.msgErro != null) return error();
-      if (_controller.isRequesting) return loading();
-      return main();
+      animationController.forward(from: 0.0);
+      Widget child;
+      if (_controller.msgErro != null)
+        child = error();
+      else if (_controller.isRequesting)
+        child = loading();
+      else
+        child = main();
+      return FadeTransition(
+          opacity: Tween(begin: 0.0, end: 1.0).animate(animationController),
+          child: child);
     });
   }
 
@@ -78,15 +99,16 @@ class _HistoricoTrabPageState extends State<HistoricoTrabPage> {
   Widget buildItem(Trabalho trabalho) {
     return Card(
       child: ListTile(
-        onTap: (){
-           showModalBottomSheet(
+        onTap: () {
+          showModalBottomSheet(
               isScrollControlled: true,
               context: context,
               backgroundColor: Colors.transparent,
               builder: (context) {
                 return Container(
                   child: TrabalhoDetahePage(
-                    trabalho: trabalho,canCancel:false,
+                    trabalho: trabalho,
+                    canCancel: false,
                   ),
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
