@@ -92,22 +92,17 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16),
       child: Column(
+        // cros,
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Seja bem vindo',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-            ),
+          Text(
+            'Seja bem vindo',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
           ),
-          Container(
-            padding: EdgeInsets.all(16),
-            child: Text(
-              'Para uma experiência de verdade, agende',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, color: Colors.black),
-            ),
+          Text(
+            'Para uma experiência de verdade, agende',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24, color: Colors.black),
           ),
         ],
       ),
@@ -115,14 +110,11 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   }
 
   _buildButtonCadastrar() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      child: Button4Geracao(
-        title: 'Cadastrar',
-        action: () {
-          push(context, CadastroPage());
-        },
-      ),
+    return Button4Geracao(
+      title: 'Cadastrar',
+      action: () {
+        push(context, CadastroPage());
+      },
     );
   }
 
@@ -140,16 +132,13 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
 
   _buildSouCliente() {
     return InkWell(
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Text(
-          'Já sou cliente',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-              color: Colors.black),
-        ),
+      child: Text(
+        'Já sou cliente',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            color: Colors.black),
       ),
       onTap: () {
         push(context, LoginPage());

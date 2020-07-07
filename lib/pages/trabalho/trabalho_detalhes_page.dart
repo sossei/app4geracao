@@ -292,7 +292,8 @@ class _TrabalhoDetahePageState extends State<TrabalhoDetahePage> {
 
   ratingBar(trab) {
     return RatingBar(
-      initialRating: double.parse(trab.rating.toString()) ?? 0,
+      initialRating:
+          double.parse(trab.rating == null ? '5' : trab.rating.toString()) ?? 0,
       itemCount: 5,
       allowHalfRating: false,
       ignoreGestures: true,

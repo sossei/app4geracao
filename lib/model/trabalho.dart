@@ -68,7 +68,8 @@ class Trabalho {
         json['usuario'] != null ? new Usuario(email: json['usuario']) : null;
     barbeiro =
         json['barbeiro'] != null ? new Barbeiro(id: json['barbeiro']) : null;
-    servico = json['servico'] != null ? new Servico(id: json['servico']) : null;
+    servico =
+        json['servico'] != null ? Servico.fromJson(json['servico']) : null;
     antes = json['antes'];
     depois = json['depois'];
     rating = json['rating'];
